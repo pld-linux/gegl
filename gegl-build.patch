@@ -1,0 +1,15 @@
+diff -ur gegl-0.0.12-ol/bin/Makefile.am gegl-0.0.12/bin/Makefile.am
+--- gegl-0.0.12-ol/bin/Makefile.am	2007-02-05 08:03:58.000000000 -0700
++++ gegl-0.0.12/bin/Makefile.am	2007-06-10 18:03:08.000000000 -0600
+@@ -36,9 +36,7 @@
+ 	-I$(top_srcdir)	-I$(top_srcdir)/gegl -I$(top_srcdir)/gegl/buffer \
+ 	@DEP_CFLAGS@ @GTK_CFLAGS@ @BABL_CFLAGS@ @PNG_CFLAGS@
+ 
+-AM_LDFLAGS =  \
++gegl_LDFLAGS = \
++	../gegl/libgegl-@GEGL_API_VERSION@.la \
+ 	-no-undefined \
+ 	@DEP_LIBS@ @GTK_LIBS@ @BABL_LIBS@ @PNG_LIBS@
+-
+-gegl_LDFLAGS = \
+-	../gegl/libgegl-@GEGL_API_VERSION@.la
