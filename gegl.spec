@@ -10,16 +10,23 @@ Source0:	ftp://ftp.gtk.org/pub/gegl/0.0/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-build.patch
 URL:		http://www.gegl.org/
 BuildRequires:	OpenEXR-devel
-BuildRequires:	autoconf
+BuildRequires:	SDL-devel
+BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
-BuildRequires:	babl-devel
+BuildRequires:	babl-devel >= 0.0.14
 BuildRequires:	cairo-devel
-BuildRequires:	glib2-devel
-BuildRequires:	gtk+2-devel
+BuildRequires:	enscript
+BuildRequires:	glib2-devel >= 1:2.6.4
+BuildRequires:	gtk+2-devel >= 2:2.8.6
+BuildRequires:	graphviz
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
-BuildRequires:	librsvg-devel
-BuildRequires:	pango-devel
+BuildRequires:	librsvg-devel >= 1:2.14.0
+BuildRequires:	libtool
+BuildRequires:	pango-devel >= 1:1.10.0
+BuildRequires:	perl-base
+BuildRequires:	pkgconfig
+BuildRequires:	ruby
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -44,6 +51,8 @@ Summary:	Header files for gegl library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki gegl
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	babl-devel >= 0.0.14
+Requires:	glib2-devel >= 1:2.6.4
 
 %description devel
 Header files for gegl library.
@@ -68,8 +77,10 @@ Statyczna biblioteka gegl.
 %patch0 -p1
 
 %build
+%{__libtoolize}
 %{__aclocal}
 %{__autoconf}
+%{__autoheader}
 %{__automake}
 %configure
 %{__make}
