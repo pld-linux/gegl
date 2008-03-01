@@ -3,7 +3,7 @@ Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
 Version:	0.0.16
 Release:	1
-License:	LGPL v2+
+License:	LGPL v3+
 Group:		Libraries
 Source0:	ftp://ftp.gtk.org/pub/gegl/0.0/%{name}-%{version}.tar.bz2
 # Source0-md5:	fd49cb219ece97f4677554db4a2c02d1
@@ -11,19 +11,23 @@ Patch0:		%{name}-lua.patch
 URL:		http://www.gegl.org/
 BuildRequires:	OpenEXR-devel
 BuildRequires:	SDL-devel
+BuildRequires:	asciidoc
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
 BuildRequires:	babl-devel >= 0.0.20
+BuildRequires:	cairo-devel
 BuildRequires:	enscript
 BuildRequires:	ffmpeg-devel
-BuildRequires:	glib2-devel >= 1:2.15.6
+BuildRequires:	glib2-devel >= 1:2.14.1
 BuildRequires:	graphviz
 BuildRequires:	gtk+2-devel >= 2:2.12.0
 BuildRequires:	gtk-doc
 BuildRequires:	libjpeg-devel
+BuildRequires:	libpng-devel
 BuildRequires:	librsvg-devel >= 1:2.14.0
 BuildRequires:	libtool
-BuildRequires:	lua51-devel
+BuildRequires:	lua51-devel >= 5.1.0
+BuildRequires:	pango-devel >= 1:1.10
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
 BuildRequires:	ruby
@@ -51,8 +55,8 @@ Summary:	Header files for gegl library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki gegl
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	babl-devel >= 0.0.14
-Requires:	glib2-devel >= 1:2.6.4
+Requires:	babl-devel >= 0.0.20
+Requires:	glib2-devel >= 1:2.14.1
 
 %description devel
 Header files for gegl library.
