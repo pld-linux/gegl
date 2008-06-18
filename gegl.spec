@@ -1,12 +1,12 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.0.16
+Version:	0.0.18
 Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	ftp://ftp.gtk.org/pub/gegl/0.0/%{name}-%{version}.tar.bz2
-# Source0-md5:	fd49cb219ece97f4677554db4a2c02d1
+# Source0-md5:	e458409440a7b51f446df321c3657e4d
 Patch0:		%{name}-lua.patch
 URL:		http://www.gegl.org/
 BuildRequires:	OpenEXR-devel
@@ -14,7 +14,7 @@ BuildRequires:	SDL-devel
 BuildRequires:	asciidoc
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
-BuildRequires:	babl-devel >= 0.0.20
+BuildRequires:	babl-devel >= 0.0.22
 BuildRequires:	cairo-devel
 BuildRequires:	enscript
 BuildRequires:	ffmpeg-devel
