@@ -1,3 +1,14 @@
+#
+# Conditional build:
+%bcond_with	mmx	# use MMX instructions
+%bcond_with	sse	# use SSE instructions
+#
+%ifarch %{x8664} athlon pentium3 pentium4
+%define	with_mmx	1
+%endif
+%ifarch %{x8664} pentium3 pentium4
+%define	with_sse	1
+%endif
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
@@ -99,6 +110,8 @@ Dokumentacja API biblioteki gegl.
 %{__autoheader}
 %{__automake}
 %configure \
+	%{!?with_mmx:--disable-mmx} \
+	%{!?with_sse:--disable-sse} \
 	--enable-static
 %{__make}
 
