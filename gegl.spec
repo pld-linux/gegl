@@ -13,12 +13,13 @@ Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
 Version:	0.0.18
-Release:	2
+Release:	3
 License:	LGPL v3+
 Group:		Libraries
 Source0:	ftp://ftp.gtk.org/pub/gegl/0.0/%{name}-%{version}.tar.bz2
 # Source0-md5:	e458409440a7b51f446df321c3657e4d
 Patch0:		%{name}-lua.patch
+Patch1:		%{name}-ffmpeg.patch
 URL:		http://www.gegl.org/
 BuildRequires:	OpenEXR-devel
 BuildRequires:	SDL-devel
@@ -102,6 +103,7 @@ Dokumentacja API biblioteki gegl.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %{__libtoolize}
