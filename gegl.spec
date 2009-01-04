@@ -12,12 +12,12 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.0.20
+Version:	0.0.22
 Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	ftp://ftp.gtk.org/pub/gegl/0.0/%{name}-%{version}.tar.bz2
-# Source0-md5:	2e1f97ec8abd9a4a21f458b43799bff2
+# Source0-md5:	e2196c2016d16a4479e157f8fdee4162
 Patch0:		%{name}-lua.patch
 Patch1:		%{name}-ffmpeg.patch
 URL:		http://www.gegl.org/
