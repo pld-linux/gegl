@@ -2,6 +2,7 @@
 # Conditional build:
 %bcond_with	mmx	# use MMX instructions
 %bcond_with	sse	# use SSE instructions
+%bcond_with	docs
 #
 %ifarch %{x8664} athlon pentium3 pentium4
 %define	with_mmx	1
@@ -12,12 +13,12 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.1.0
-Release:	3
+Version:	0.1.2
+Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	ftp://ftp.gtk.org/pub/gegl/0.1/%{name}-%{version}.tar.bz2
-# Source0-md5:	5a989ad617801c5dbec3d47c30bd64f0
+# Source0-md5:	d35ffe17dc042652eca3205488ece262
 Patch0:		%{name}-lua.patch
 Patch1:		%{name}-ffmpeg.patch
 URL:		http://www.gegl.org/
@@ -26,10 +27,10 @@ BuildRequires:	SDL-devel
 BuildRequires:	asciidoc
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
-BuildRequires:	babl-devel >= 0.1.0
+BuildRequires:	babl-devel >= 0.1.2
 BuildRequires:	cairo-devel
 BuildRequires:	enscript
-BuildRequires:	ffmpeg-devel >= 0.4.9-4.20080930.1
+BuildRequires:	ffmpeg-devel >= 0.6
 BuildRequires:	glib2-devel >= 1:2.14.1
 BuildRequires:	graphviz
 BuildRequires:	gtk+2-devel >= 2:2.12.0
@@ -112,6 +113,7 @@ Dokumentacja API biblioteki gegl.
 %{__autoheader}
 %{__automake}
 %configure \
+	--%{?with_docs:en}%{!?with_docs:dis}able-docs \
 	%{!?with_mmx:--disable-mmx} \
 	%{!?with_sse:--disable-sse} \
 	--enable-static
@@ -136,22 +138,24 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/gegl
-%attr(755,root,root) %{_libdir}/libgegl-0.0.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgegl-0.0.so.0
-%dir %{_libdir}/gegl-0.0
-%attr(755,root,root) %{_libdir}/gegl-0.0/*.so
+%attr(755,root,root) %{_libdir}/libgegl-0.1.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgegl-0.1.so.0
+%dir %{_libdir}/gegl-0.1
+%attr(755,root,root) %{_libdir}/gegl-0.1/*.so
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgegl-0.0.so
-%{_libdir}/libgegl-0.0.la
-%{_includedir}/gegl-0.0
+%attr(755,root,root) %{_libdir}/libgegl-0.1.so
+%{_libdir}/libgegl-0.1.la
+%{_includedir}/gegl-0.1
 %{_pkgconfigdir}/gegl.pc
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libgegl-0.0.a
+%{_libdir}/libgegl-0.1.a
 
+%if %{with docs}
 %files apidocs
 %defattr(644,root,root,755)
 %{_gtkdocdir}/gegl
+%endif
