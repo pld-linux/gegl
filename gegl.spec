@@ -31,19 +31,25 @@ BuildRequires:	babl-devel >= 0.1.2
 BuildRequires:	cairo-devel
 BuildRequires:	enscript
 BuildRequires:	ffmpeg-devel >= 0.6
-BuildRequires:	glib2-devel >= 1:2.14.1
+BuildRequires:	gdk-pixbuf2-devel >= 2.12.0
+BuildRequires:	glib2-devel >= 1:2.22.0
 BuildRequires:	graphviz
-BuildRequires:	gtk+2-devel >= 2:2.12.0
-BuildRequires:	gtk-doc
+BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	libjpeg-devel
+BuildRequires:	libopenraw-devel >= 0.0.5
 BuildRequires:	libpng-devel
 BuildRequires:	librsvg-devel >= 1:2.14.0
+BuildRequires:	libspiro-devel
 BuildRequires:	libtool
 BuildRequires:	lua51-devel >= 5.1.0
 BuildRequires:	pango-devel >= 1:1.10
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
 BuildRequires:	ruby
+Requires:	babl >= 0.1.2
+Requires:	glib2 >= 1:2.22.0
+Requires:	libopenraw >= 0.0.5
+Requires:	librsvg >= 1:2.14.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -69,7 +75,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki gegl
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	babl-devel >= 0.0.20
-Requires:	glib2-devel >= 1:2.14.1
+Requires:	glib2-devel >= 1:2.22.0
 
 %description devel
 Header files for gegl library.
@@ -116,6 +122,7 @@ Dokumentacja API biblioteki gegl.
 	--%{?with_docs:en}%{!?with_docs:dis}able-docs \
 	%{!?with_mmx:--disable-mmx} \
 	%{!?with_sse:--disable-sse} \
+	--disable-silent-rules \
 	--enable-static
 %{__make}
 
@@ -126,7 +133,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	help_dir=$RPM_BUILD_ROOT%{_gtkdocdir}/gegl
 
-rm -f $RPM_BUILD_ROOT%{_libdir}/gegl-0.0/*.{a,la}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.1/*.{a,la}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
