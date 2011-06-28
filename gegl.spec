@@ -21,6 +21,7 @@ Source0:	ftp://ftp.gtk.org/pub/gegl/0.1/%{name}-%{version}.tar.bz2
 # Source0-md5:	d35ffe17dc042652eca3205488ece262
 Patch0:		%{name}-lua.patch
 Patch1:		%{name}-ffmpeg.patch
+Patch2:		%{name}-ffmpeg-0.8.patch
 URL:		http://www.gegl.org/
 BuildRequires:	OpenEXR-devel
 BuildRequires:	SDL-devel
@@ -111,6 +112,7 @@ Dokumentacja API biblioteki gegl.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -119,7 +121,7 @@ Dokumentacja API biblioteki gegl.
 %{__autoheader}
 %{__automake}
 %configure \
-	--%{?with_docs:en}%{!?with_docs:dis}able-docs \
+	--enable-docs%{!?with_doc:=no} \
 	%{!?with_mmx:--disable-mmx} \
 	%{!?with_sse:--disable-sse} \
 	--disable-silent-rules \
@@ -161,7 +163,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libgegl-0.1.a
 
-%if %{with docs}
+%if %{with doc}
 %files apidocs
 %defattr(644,root,root,755)
 %{_gtkdocdir}/gegl
