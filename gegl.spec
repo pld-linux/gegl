@@ -31,7 +31,7 @@ BuildRequires:	automake
 BuildRequires:	babl-devel >= 0.1.2
 BuildRequires:	cairo-devel
 BuildRequires:	enscript
-BuildRequires:	ffmpeg-devel >= 0.6
+BuildRequires:	ffmpeg-devel >= 0.8
 BuildRequires:	gdk-pixbuf2-devel >= 2.12.0
 BuildRequires:	glib2-devel >= 1:2.22.0
 BuildRequires:	graphviz
