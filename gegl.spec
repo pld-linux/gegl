@@ -2,8 +2,8 @@
 # Conditional build:
 %bcond_with	mmx	# use MMX instructions
 %bcond_with	sse	# use SSE instructions
-%bcond_with	docs
-#
+%bcond_with	doc
+
 %ifarch %{x8664} athlon pentium3 pentium4
 %define	with_mmx	1
 %endif
