@@ -53,7 +53,7 @@ BuildRequires:	ruby
 Requires:	babl >= 0.1.4
 Requires:	glib2 >= 1:2.22.0
 Requires:	gdk-pixbuf2 >= 2.18.0
-Requires:	jasper >= 1.900.1
+Requires:	jasper-libs >= 1.900.1
 Requires:	libopenraw >= 0.0.5
 Requires:	librsvg >= 1:2.14.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
