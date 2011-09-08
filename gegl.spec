@@ -13,12 +13,12 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.1.2
-Release:	3
+Version:	0.1.6
+Release:	1
 License:	LGPL v3+
 Group:		Libraries
-Source0:	ftp://ftp.gtk.org/pub/gegl/0.1/%{name}-%{version}.tar.bz2
-# Source0-md5:	d35ffe17dc042652eca3205488ece262
+Source0:	ftp://ftp.gimp.org/pub/gegl/0.1//%{name}-%{version}.tar.bz2
+# Source0-md5:	af5e5a7d3c7ddfaa2b3414de2a7e9113
 Patch0:		%{name}-lua.patch
 Patch1:		%{name}-ffmpeg.patch
 Patch2:		%{name}-ffmpeg-0.8.patch
@@ -28,7 +28,7 @@ BuildRequires:	SDL-devel
 BuildRequires:	asciidoc
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
-BuildRequires:	babl-devel >= 0.1.2
+BuildRequires:	babl-devel >= 0.1.4
 BuildRequires:	cairo-devel
 BuildRequires:	enscript
 BuildRequires:	ffmpeg-devel >= 0.8
@@ -116,7 +116,7 @@ Dokumentacja API biblioteki gegl.
 
 %build
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
