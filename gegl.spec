@@ -25,17 +25,20 @@ Patch2:		%{name}-ffmpeg-0.8.patch
 URL:		http://www.gegl.org/
 BuildRequires:	OpenEXR-devel
 BuildRequires:	SDL-devel
+BuildRequires:	UMFPACK-devel
 BuildRequires:	asciidoc
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake
 BuildRequires:	babl-devel >= 0.1.4
 BuildRequires:	cairo-devel
 BuildRequires:	enscript
+BuildRequires:	exiv2-devel
 BuildRequires:	ffmpeg-devel >= 0.8
-BuildRequires:	gdk-pixbuf2-devel >= 2.12.0
+BuildRequires:	gdk-pixbuf2-devel >= 2.18.0
 BuildRequires:	glib2-devel >= 1:2.22.0
 BuildRequires:	graphviz
 BuildRequires:	gtk-doc >= 1.0
+BuildRequires:	jasper-devel >= 1.900.1
 BuildRequires:	libjpeg-devel
 BuildRequires:	libopenraw-devel >= 0.0.5
 BuildRequires:	libpng-devel
@@ -47,8 +50,10 @@ BuildRequires:	pango-devel >= 1:1.10
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
 BuildRequires:	ruby
-Requires:	babl >= 0.1.2
+Requires:	babl >= 0.1.4
 Requires:	glib2 >= 1:2.22.0
+Requires:	gdk-pixbuf2 >= 2.18.0
+Requires:	jasper >= 1.900.1
 Requires:	libopenraw >= 0.0.5
 Requires:	librsvg >= 1:2.14.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -75,7 +80,7 @@ Summary:	Header files for gegl library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki gegl
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	babl-devel >= 0.0.20
+Requires:	babl-devel >= 0.1.4
 Requires:	glib2-devel >= 1:2.22.0
 
 %description devel
@@ -121,6 +126,7 @@ Dokumentacja API biblioteki gegl.
 %{__autoheader}
 %{__automake}
 %configure \
+	CPPFLAGS="%{rpmcppflags} -I/usr/include/umfpack" \
 	--enable-docs%{!?with_doc:=no} \
 	%{!?with_mmx:--disable-mmx} \
 	%{!?with_sse:--disable-sse} \
