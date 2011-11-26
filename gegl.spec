@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_with	mmx	# use MMX instructions
 %bcond_with	sse	# use SSE instructions
-%bcond_with	doc	# apidocs (fail to build)
+%bcond_without	doc	# apidocs
 %bcond_without	vala	# Vala API
 #
 %ifarch %{x8664} athlon pentium3 pentium4
@@ -22,6 +22,7 @@ Source0:	ftp://ftp.gimp.org/pub/gegl/0.1/%{name}-%{version}.tar.bz2
 # Source0-md5:	c8279b86b3d584ee4f503839fc500425
 Patch0:		%{name}-lua.patch
 Patch1:		%{name}-ffmpeg.patch
+Patch2:		%{name}-ruby1.9.patch
 URL:		http://www.gegl.org/
 BuildRequires:	OpenEXR-devel
 BuildRequires:	SDL-devel
@@ -52,7 +53,7 @@ BuildRequires:	lua51-devel >= 5.1.0
 BuildRequires:	pango-devel >= 1:1.10
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
-BuildRequires:	ruby
+BuildRequires:	ruby >= 1.9
 %{?with_vala:BuildRequires:	vala}
 Requires:	babl >= 0.1.6
 Requires:	glib2 >= 1:2.28.0
@@ -134,6 +135,7 @@ API języka Vala dla biblioteki gegl.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -155,7 +157,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
-	help_dir=$RPM_BUILD_ROOT%{_gtkdocdir}/gegl
+	gtkdochtmldir=%{_gtkdocdir}/gegl
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.1/*.{a,la}
 
