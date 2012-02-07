@@ -15,7 +15,7 @@ Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
 Version:	0.1.8
-Release:	1
+Release:	2
 License:	LGPL v3+
 Group:		Libraries
 Source0:	ftp://ftp.gimp.org/pub/gegl/0.1/%{name}-%{version}.tar.bz2
