@@ -3,7 +3,8 @@
 %bcond_with	mmx	# use MMX instructions
 %bcond_with	sse	# use SSE instructions
 %bcond_without	doc	# apidocs
-%bcond_without	vala	# Vala API
+# reenable when new babl will arrive that actually is able to build
+%bcond_with	vala	# Vala API
 #
 %ifarch %{x8664} athlon pentium3 pentium4
 %define	with_mmx	1
@@ -15,7 +16,7 @@ Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
 Version:	0.1.8
-Release:	3
+Release:	4
 License:	LGPL v3+
 Group:		Libraries
 Source0:	ftp://ftp.gimp.org/pub/gegl/0.1/%{name}-%{version}.tar.bz2
@@ -23,6 +24,7 @@ Source0:	ftp://ftp.gimp.org/pub/gegl/0.1/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-lua.patch
 Patch1:		%{name}-ffmpeg.patch
 Patch2:		%{name}-ruby1.9.patch
+Patch3:		%{name}-build.patch
 URL:		http://www.gegl.org/
 BuildRequires:	OpenEXR-devel
 BuildRequires:	SDL-devel
@@ -136,6 +138,7 @@ API języka Vala dla biblioteki gegl.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__libtoolize}
@@ -148,6 +151,7 @@ API języka Vala dla biblioteki gegl.
 	--enable-docs%{!?with_doc:=no} \
 	%{!?with_mmx:--disable-mmx} \
 	%{!?with_sse:--disable-sse} \
+	--with%{!?with_vala:out}-vala \
 	--disable-silent-rules \
 	--enable-static
 %{__make}
