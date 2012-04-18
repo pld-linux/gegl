@@ -177,7 +177,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/gegl
 %attr(755,root,root) %{_libdir}/libgegl-0.2.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgegl-0.2.so.0
-%{_libdir}/girepository-1.0/Gegl-0.2.typelib
+#%{_libdir}/girepository-1.0/Gegl-0.2.typelib
 %dir %{_libdir}/gegl-0.2
 %attr(755,root,root) %{_libdir}/gegl-0.2/*.so
 
@@ -186,8 +186,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgegl-0.2.so
 %{_libdir}/libgegl-0.2.la
 %{_includedir}/gegl-0.2
-%{_datadir}/gir-1.0/Gegl-0.2.gir
-%{_pkgconfigdir}/gegl.pc
+#%{_datadir}/gir-1.0/Gegl-0.2.gir
+%{_pkgconfigdir}/gegl-0.2.pc
 
 %files static
 %defattr(644,root,root,755)
