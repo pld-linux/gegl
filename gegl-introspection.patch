@@ -1,0 +1,17 @@
+--- gegl-0.2.0/gegl/Makefile.am.orig	2012-03-25 23:30:17.000000000 +0200
++++ gegl-0.2.0/gegl/Makefile.am	2012-04-18 20:03:57.989734708 +0200
+@@ -118,10 +118,10 @@
+ INCLUDES = $(AM_CFLAGS) $(AM_CPPFLAGS)
+ 
+ Gegl-@GEGL_API_VERSION@.gir: libgegl-@GEGL_API_VERSION@.la Makefile
+-Gegl_0_1_gir_INCLUDES = GObject-2.0 GLib-2.0 Babl-0.1
+-Gegl_0_1_gir_CFLAGS = $(INCLUDES)
+-Gegl_0_1_gir_LIBS = libgegl-@GEGL_API_VERSION@.la
+-Gegl_0_1_gir_FILES = $(introspection_sources)
++Gegl_0_2_gir_INCLUDES = GObject-2.0 GLib-2.0 Babl-0.1
++Gegl_0_2_gir_CFLAGS = $(INCLUDES)
++Gegl_0_2_gir_LIBS = libgegl-@GEGL_API_VERSION@.la
++Gegl_0_2_gir_FILES = $(introspection_sources)
+ INTROSPECTION_GIRS += Gegl-@GEGL_API_VERSION@.gir
+ 
+ girdir = $(datadir)/gir-1.0

@@ -1,16 +1,20 @@
 #
 # Conditional build:
-%bcond_with	mmx	# use MMX instructions
-%bcond_with	sse	# use SSE instructions
-%bcond_without	doc	# apidocs
+%bcond_with	mmx		# use MMX instructions
+%bcond_with	sse		# use SSE instructions
+%bcond_without	doc		# apidocs
+%bcond_without	introspection	# API introspection
 # reenable when new babl will arrive that actually is able to build
-%bcond_with	vala	# Vala API
+%bcond_with	vala		# Vala API
 #
 %ifarch %{x8664} athlon pentium3 pentium4
 %define	with_mmx	1
 %endif
 %ifarch %{x8664} pentium3 pentium4
 %define	with_sse	1
+%endif
+%if %{without introspection}
+%undefine	with_vala
 %endif
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
@@ -25,6 +29,7 @@ Patch0:		%{name}-lua.patch
 Patch1:		%{name}-ffmpeg.patch
 Patch2:		%{name}-ruby1.9.patch
 Patch3:		%{name}-build.patch
+Patch4:		%{name}-introspection.patch
 URL:		http://www.gegl.org/
 BuildRequires:	OpenEXR-devel
 BuildRequires:	SDL-devel
@@ -33,15 +38,17 @@ BuildRequires:	asciidoc
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	babl-devel >= 0.1.10
+%{?with_introspection:BuildRequires:	/usr/share/gir-1.0/Babl-0.1.gir}
 BuildRequires:	cairo-devel
 BuildRequires:	enscript
 BuildRequires:	exiv2-devel
 BuildRequires:	ffmpeg-devel >= 0.8
 BuildRequires:	gdk-pixbuf2-devel >= 2.18.0
 BuildRequires:	glib2-devel >= 1:2.28.0
-BuildRequires:	gobject-introspection-devel >= 0.10.0
+%{?with_introspection:BuildRequires:	gobject-introspection-devel >= 0.10.0}
 BuildRequires:	graphviz
 BuildRequires:	gtk-doc >= 1.0
+BuildRequires:	intltool >= 0.40.1
 BuildRequires:	jasper-devel >= 1.900.1
 BuildRequires:	lensfun-devel >= 0.2.5
 BuildRequires:	libjpeg-devel
@@ -139,6 +146,7 @@ API języka Vala dla biblioteki gegl.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__libtoolize}
@@ -149,11 +157,12 @@ API języka Vala dla biblioteki gegl.
 %configure \
 	CPPFLAGS="%{rpmcppflags} -I/usr/include/umfpack" \
 	--enable-docs%{!?with_doc:=no} \
+	%{?with_introspection:--enable-introspection} \
 	%{!?with_mmx:--disable-mmx} \
 	%{!?with_sse:--disable-sse} \
-	--with%{!?with_vala:out}-vala \
 	--disable-silent-rules \
-	--enable-static
+	--enable-static \
+	--with%{!?with_vala:out}-vala
 %{__make}
 
 %install
@@ -165,19 +174,21 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.2/*.{a,la}
 
+%find_lang %{name}-0.2
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%files
+%files -f %{name}-0.2.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/gegl
 %attr(755,root,root) %{_libdir}/libgegl-0.2.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgegl-0.2.so.0
-#%{_libdir}/girepository-1.0/Gegl-0.2.typelib
+%{?with_introspection:%{_libdir}/girepository-1.0/Gegl-0.2.typelib}
 %dir %{_libdir}/gegl-0.2
 %attr(755,root,root) %{_libdir}/gegl-0.2/*.so
 
@@ -186,7 +197,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libgegl-0.2.so
 %{_libdir}/libgegl-0.2.la
 %{_includedir}/gegl-0.2
-#%{_datadir}/gir-1.0/Gegl-0.2.gir
+%{?with_introspection:%{_datadir}/gir-1.0/Gegl-0.2.gir}
 %{_pkgconfigdir}/gegl-0.2.pc
 
 %files static
