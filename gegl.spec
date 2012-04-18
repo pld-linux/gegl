@@ -15,12 +15,12 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.1.8
-Release:	4
+Version:	0.2.0
+Release:	0.1
 License:	LGPL v3+
 Group:		Libraries
-Source0:	ftp://ftp.gimp.org/pub/gegl/0.1/%{name}-%{version}.tar.bz2
-# Source0-md5:	c8279b86b3d584ee4f503839fc500425
+Source0:	ftp://ftp.gimp.org/pub/gegl/0.2/%{name}-%{version}.tar.bz2
+# Source0-md5:	32b00002f1f1e316115c4ed922e1dec8
 Patch0:		%{name}-lua.patch
 Patch1:		%{name}-ffmpeg.patch
 Patch2:		%{name}-ruby1.9.patch
@@ -32,7 +32,7 @@ BuildRequires:	UMFPACK-devel
 BuildRequires:	asciidoc
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	babl-devel >= 0.1.6
+BuildRequires:	babl-devel >= 0.1.10
 BuildRequires:	cairo-devel
 BuildRequires:	enscript
 BuildRequires:	exiv2-devel
@@ -57,7 +57,7 @@ BuildRequires:	perl-base
 BuildRequires:	pkgconfig
 BuildRequires:	ruby >= 1.9
 %{?with_vala:BuildRequires:	vala}
-Requires:	babl >= 0.1.6
+Requires:	babl >= 0.1.10
 Requires:	glib2 >= 1:2.28.0
 Requires:	gdk-pixbuf2 >= 2.18.0
 Requires:	jasper-libs >= 1.900.1
@@ -88,7 +88,7 @@ Summary:	Header files for gegl library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki gegl
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	babl-devel >= 0.1.6
+Requires:	babl-devel >= 0.1.10
 Requires:	glib2-devel >= 1:2.28.0
 
 %description devel
@@ -163,7 +163,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	gtkdochtmldir=%{_gtkdocdir}/gegl
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.1/*.{a,la}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.2/*.{a,la}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
