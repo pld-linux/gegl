@@ -175,23 +175,23 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/gegl
-%attr(755,root,root) %{_libdir}/libgegl-0.1.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgegl-0.1.so.0
-%{_libdir}/girepository-1.0/Gegl-0.1.typelib
-%dir %{_libdir}/gegl-0.1
-%attr(755,root,root) %{_libdir}/gegl-0.1/*.so
+%attr(755,root,root) %{_libdir}/libgegl-0.2.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgegl-0.2.so.0
+%{_libdir}/girepository-1.0/Gegl-0.2.typelib
+%dir %{_libdir}/gegl-0.2
+%attr(755,root,root) %{_libdir}/gegl-0.2/*.so
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgegl-0.1.so
-%{_libdir}/libgegl-0.1.la
-%{_includedir}/gegl-0.1
-%{_datadir}/gir-1.0/Gegl-0.1.gir
+%attr(755,root,root) %{_libdir}/libgegl-0.2.so
+%{_libdir}/libgegl-0.2.la
+%{_includedir}/gegl-0.2
+%{_datadir}/gir-1.0/Gegl-0.2.gir
 %{_pkgconfigdir}/gegl.pc
 
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libgegl-0.1.a
+%{_libdir}/libgegl-0.2.a
 
 %if %{with doc}
 %files apidocs
@@ -202,5 +202,5 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with vala}
 %files -n vala-gegl
 %defattr(644,root,root,755)
-%{_datadir}/vala/vapi/gegl-0.1.vapi
+%{_datadir}/vala/vapi/gegl-0.2.vapi
 %endif
