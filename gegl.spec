@@ -3,7 +3,8 @@
 %bcond_with	mmx		# use MMX instructions
 %bcond_with	sse		# use SSE instructions
 %bcond_without	doc		# apidocs
-%bcond_without	introspection	# API introspection
+# reenable when new babl will arrive that actually is able to build
+%bcond_with	introspection	# API introspection
 # reenable when new babl will arrive that actually is able to build
 %bcond_with	vala		# Vala API
 #
@@ -20,7 +21,7 @@ Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
 Version:	0.2.0
-Release:	0.1
+Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	ftp://ftp.gimp.org/pub/gegl/0.2/%{name}-%{version}.tar.bz2
