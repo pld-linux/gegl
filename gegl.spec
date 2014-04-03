@@ -7,7 +7,7 @@
 %bcond_with	introspection	# API introspection
 # reenable when new babl will arrive that actually is able to build
 %bcond_with	vala		# Vala API
-#
+
 %ifarch %{x8664} athlon pentium3 pentium4
 %define	with_mmx	1
 %endif
@@ -21,7 +21,7 @@ Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
 Version:	0.2.0
-Release:	5
+Release:	6
 License:	LGPL v3+
 Group:		Libraries
 Source0:	ftp://ftp.gimp.org/pub/gegl/0.2/%{name}-%{version}.tar.bz2
@@ -32,6 +32,7 @@ Patch2:		%{name}-ruby1.9.patch
 Patch3:		%{name}-build.patch
 Patch4:		%{name}-introspection.patch
 URL:		http://www.gegl.org/
+%{?with_introspection:BuildRequires:	/usr/share/gir-1.0/Babl-0.1.gir}
 BuildRequires:	OpenEXR-devel
 BuildRequires:	SDL-devel
 BuildRequires:	UMFPACK-devel
@@ -39,7 +40,6 @@ BuildRequires:	asciidoc
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	babl-devel >= 0.1.10
-%{?with_introspection:BuildRequires:	/usr/share/gir-1.0/Babl-0.1.gir}
 BuildRequires:	cairo-devel
 BuildRequires:	enscript
 BuildRequires:	exiv2-devel
@@ -66,8 +66,8 @@ BuildRequires:	pkgconfig
 BuildRequires:	ruby >= 1.9
 %{?with_vala:BuildRequires:	vala}
 Requires:	babl >= 0.1.10
-Requires:	glib2 >= 1:2.28.0
 Requires:	gdk-pixbuf2 >= 2.18.0
+Requires:	glib2 >= 1:2.28.0
 Requires:	jasper-libs >= 1.900.1
 Requires:	lensfun >= 0.2.5
 Requires:	libopenraw >= 0.0.5
@@ -122,6 +122,9 @@ Summary:	gegl library API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki gegl
 Group:		Documentation
 Requires:	gtk-doc-common
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
 
 %description apidocs
 gegl library API documentation.
