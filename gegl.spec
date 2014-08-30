@@ -24,7 +24,7 @@ Version:	0.2.0
 Release:	7
 License:	LGPL v3+
 Group:		Libraries
-Source0:	ftp://ftp.gimp.org/pub/gegl/0.2/%{name}-%{version}.tar.bz2
+Source0:	http://ftp.gimp.org/pub/gegl/0.2/%{name}-%{version}.tar.bz2
 # Source0-md5:	32b00002f1f1e316115c4ed922e1dec8
 Patch0:		%{name}-lua.patch
 Patch1:		%{name}-ffmpeg.patch
