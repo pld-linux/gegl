@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_with	mmx		# use MMX instructions
 %bcond_with	sse		# use SSE instructions
-%bcond_without	doc		# apidocs
+%bcond_with	doc		# apidocs
 # reenable when new babl will arrive that actually is able to build
 %bcond_with	introspection	# API introspection
 # reenable when new babl will arrive that actually is able to build
@@ -21,7 +21,7 @@ Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
 Version:	0.2.0
-Release:	8
+Release:	9
 License:	LGPL v3+
 Group:		Libraries
 Source0:	http://ftp.gimp.org/pub/gegl/0.2/%{name}-%{version}.tar.bz2
@@ -31,6 +31,8 @@ Patch1:		%{name}-ffmpeg.patch
 Patch2:		%{name}-ruby1.9.patch
 Patch3:		%{name}-build.patch
 Patch4:		%{name}-introspection.patch
+Patch5:		umfpack.patch
+Patch6:		CVE-2012-4433.patch
 URL:		http://www.gegl.org/
 %{?with_introspection:BuildRequires:	/usr/share/gir-1.0/Babl-0.1.gir}
 BuildRequires:	OpenEXR-devel
@@ -151,6 +153,8 @@ API języka Vala dla biblioteki gegl.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
+%patch6 -p1
 
 %build
 %{__libtoolize}

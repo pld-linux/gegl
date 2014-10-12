@@ -1,0 +1,13 @@
+--- gegl-0.2.0/operations/external/matting-levin.c~	2012-03-29 22:05:50.000000000 +0200
++++ gegl-0.2.0/operations/external/matting-levin.c	2014-10-12 19:56:41.699138429 +0200
+@@ -61,6 +61,10 @@
+ #include <suitesparse/umfpack.h>
+ #endif
+ 
++#ifndef UF_long
++#define UF_long SuiteSparse_long
++#endif
++
+ #include "matting-levin-cblas.h"
+ 
+ 
