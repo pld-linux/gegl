@@ -2,7 +2,7 @@
 # Conditional build:
 %bcond_with	mmx		# use MMX instructions
 %bcond_with	sse		# use SSE instructions
-%bcond_with	doc		# apidocs
+%bcond_without	doc		# apidocs
 # reenable when new babl will arrive that actually is able to build
 %bcond_with	introspection	# API introspection
 # reenable when new babl will arrive that actually is able to build
