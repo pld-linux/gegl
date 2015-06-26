@@ -3,6 +3,7 @@
 %bcond_with	mmx		# use MMX instructions
 %bcond_with	sse		# use SSE instructions
 %bcond_without	doc		# apidocs
+%bcond_without	static_libs	# static library
 # reenable when new babl will arrive that actually is able to build
 %bcond_with	introspection	# API introspection
 # reenable when new babl will arrive that actually is able to build
@@ -169,8 +170,8 @@ API języka Vala dla biblioteki gegl.
 	%{!?with_mmx:--disable-mmx} \
 	%{!?with_sse:--disable-sse} \
 	--disable-silent-rules \
-	--enable-static \
-	--with%{!?with_vala:out}-vala
+	%{?with_static_libs:--enable-static} \
+	--with-vala%{!?with_vala:=no}
 %{__make}
 
 %install
@@ -180,7 +181,13 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT \
 	gtkdochtmldir=%{_gtkdocdir}/gegl
 
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.2/*.{a,la}
+# obsoleted by pkg-config
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libgegl-0.2.la
+# dlopened modules
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.2/*.la
+%if %{with static_libs}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.2/*.a
+%endif
 
 %find_lang %{name}-0.2
 
@@ -203,14 +210,15 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgegl-0.2.so
-%{_libdir}/libgegl-0.2.la
 %{_includedir}/gegl-0.2
 %{?with_introspection:%{_datadir}/gir-1.0/Gegl-0.2.gir}
 %{_pkgconfigdir}/gegl-0.2.pc
 
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libgegl-0.2.a
+%endif
 
 %if %{with doc}
 %files apidocs
