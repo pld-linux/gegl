@@ -1,8 +1,0 @@
---- gegl-0.1.8/tools/create-reference.rb.orig	2011-11-18 17:00:53.000000000 +0100
-+++ gegl-0.1.8/tools/create-reference.rb	2011-11-26 08:00:21.108041541 +0100
-@@ -1,4 +1,4 @@
--#!/usr/bin/env ruby
-+#!/usr/bin/ruby -Eutf-8
- 
- # GEGL API creator Øyvind Kolås 2007,
- #
