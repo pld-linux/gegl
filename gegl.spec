@@ -29,7 +29,6 @@ Patch0:		%{name}-lua.patch
 Patch1:		%{name}-build.patch
 Patch2:		umfpack.patch
 URL:		http://www.gegl.org/
-#%{?with_introspection:BuildRequires:	/usr/share/gir-1.0/Babl-0.1.gir}
 BuildRequires:	OpenEXR-devel
 BuildRequires:	SDL-devel
 BuildRequires:	UMFPACK-devel
@@ -66,9 +65,10 @@ BuildRequires:	pango-devel >= 1:1.10
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
 BuildRequires:	python >= 1:2.5.0
+# either one?
 #BuildRequires:	python-pygobject-devel >= 2.26
 BuildRequires:	python-pygobject3-devel >= 3.2
-#BuildRequires:	poly2tri-c-devel
+BuildRequires:	poly2tri-c-devel
 BuildRequires:	ruby >= 1.9
 %{?with_vala:BuildRequires:	vala >= 2:0.20.0}
 Requires:	babl >= 0.1.12
