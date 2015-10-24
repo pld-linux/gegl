@@ -1,8 +1,8 @@
---- gegl-0.1.8/tools/create-reference.rb.orig	2011-11-18 17:00:53.000000000 +0100
-+++ gegl-0.1.8/tools/create-reference.rb	2011-11-26 08:00:21.108041541 +0100
+--- gegl-0.3.0/tools/gobj2dot.rb,orig	2015-05-17 02:32:23.000000000 +0200
++++ gegl-0.3.0/tools/gobj2dot.rb	2015-10-24 18:10:58.319944754 +0200
 @@ -1,4 +1,4 @@
 -#!/usr/bin/env ruby
 +#!/usr/bin/ruby -Eutf-8
  
- # GEGL API creator Øyvind Kolås 2007,
- #
+ # This program is free software; you can redistribute it and/or modify
+ # it under the terms of the GNU General Public License as published by

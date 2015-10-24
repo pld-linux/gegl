@@ -4,10 +4,8 @@
 %bcond_with	sse		# use SSE instructions
 %bcond_without	doc		# apidocs
 %bcond_without	static_libs	# static library
-# reenable when new babl will arrive that actually is able to build
-%bcond_with	introspection	# API introspection
-# reenable when new babl will arrive that actually is able to build
-%bcond_with	vala		# Vala API
+%bcond_without	introspection	# API introspection
+%bcond_without	vala		# Vala API
 
 %ifarch %{x8664} athlon pentium3 pentium4
 %define	with_mmx	1
@@ -21,21 +19,17 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.2.0
-Release:	12
+Version:	0.3.0
+Release:	1
 License:	LGPL v3+
 Group:		Libraries
-Source0:	http://ftp.gimp.org/pub/gegl/0.2/%{name}-%{version}.tar.bz2
-# Source0-md5:	32b00002f1f1e316115c4ed922e1dec8
+Source0:	http://ftp.gimp.org/pub/gegl/0.3/%{name}-%{version}.tar.bz2
+# Source0-md5:	6d71daab78377d5074a74651bbf7a76a
 Patch0:		%{name}-lua.patch
-Patch1:		%{name}-ffmpeg.patch
 Patch2:		%{name}-ruby1.9.patch
 Patch3:		%{name}-build.patch
-Patch4:		%{name}-introspection.patch
 Patch5:		umfpack.patch
-Patch6:		CVE-2012-4433.patch
 URL:		http://www.gegl.org/
-%{?with_introspection:BuildRequires:	/usr/share/gir-1.0/Babl-0.1.gir}
 BuildRequires:	OpenEXR-devel
 BuildRequires:	SDL-devel
 BuildRequires:	UMFPACK-devel
@@ -150,12 +144,9 @@ API języka Vala dla biblioteki gegl.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p0
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
 %patch5 -p1
-%patch6 -p1
 
 %build
 %{__libtoolize}
@@ -182,14 +173,14 @@ rm -rf $RPM_BUILD_ROOT
 	gtkdochtmldir=%{_gtkdocdir}/gegl
 
 # obsoleted by pkg-config
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libgegl-0.2.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libgegl*-0.3.la
 # dlopened modules
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.2/*.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.3/*.la
 %if %{with static_libs}
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.2/*.a
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.3/*.a
 %endif
 
-%find_lang %{name}-0.2
+%find_lang %{name}-0.3
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -197,27 +188,42 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%files -f %{name}-0.2.lang
+%files -f %{name}-0.3.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
+%attr(755,root,root) %{_bindir}/2geglbuffer
 %attr(755,root,root) %{_bindir}/gegl
-%attr(755,root,root) %{_libdir}/libgegl-0.2.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgegl-0.2.so.0
-%{?with_introspection:%{_libdir}/girepository-1.0/Gegl-0.2.typelib}
-%dir %{_libdir}/gegl-0.2
-%attr(755,root,root) %{_libdir}/gegl-0.2/*.so
+%attr(755,root,root) %{_bindir}/gegl-convert
+%attr(755,root,root) %{_bindir}/gegl-imgcmp
+%attr(755,root,root) %{_bindir}/gegl-slicer
+%attr(755,root,root) %{_bindir}/gegl-tester
+%attr(755,root,root) %{_bindir}/geglbuffer-add-image
+%attr(755,root,root) %{_bindir}/geglbuffer-clock
+%attr(755,root,root) %{_bindir}/hello-world
+%attr(755,root,root) %{_bindir}/sdl-draw
+%attr(755,root,root) %{_libdir}/libgegl-0.3.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgegl-0.3.so.0
+%attr(755,root,root) %{_libdir}/libgegl-npd-0.3.so
+%attr(755,root,root) %{_libdir}/libgegl-sc-0.3.so
+%{?with_introspection:%{_libdir}/girepository-1.0/Gegl-0.3.typelib}
+%dir %{_libdir}/gegl-0.3
+%attr(755,root,root) %{_libdir}/gegl-0.3/*.so
+%{_libdir}/gegl-0.3/grey2.json
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgegl-0.2.so
-%{_includedir}/gegl-0.2
-%{?with_introspection:%{_datadir}/gir-1.0/Gegl-0.2.gir}
-%{_pkgconfigdir}/gegl-0.2.pc
+%attr(755,root,root) %{_libdir}/libgegl-0.3.so
+%{_includedir}/gegl-0.3
+%{?with_introspection:%{_datadir}/gir-1.0/Gegl-0.3.gir}
+%{_pkgconfigdir}/gegl-0.3.pc
+%{_pkgconfigdir}/gegl-sc-0.3.pc
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libgegl-0.2.a
+%{_libdir}/libgegl-0.3.a
+%{_libdir}/libgegl-npd-0.3.a
+%{_libdir}/libgegl-sc-0.3.a
 %endif
 
 %if %{with doc}
@@ -229,5 +235,6 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with vala}
 %files -n vala-gegl
 %defattr(644,root,root,755)
-%{_datadir}/vala/vapi/gegl-0.2.vapi
+%{_datadir}/vala/vapi/gegl-0.3.deps
+%{_datadir}/vala/vapi/gegl-0.3.vapi
 %endif
