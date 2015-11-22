@@ -36,18 +36,22 @@ BuildRequires:	UMFPACK-devel
 BuildRequires:	asciidoc
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	babl-devel >= 0.1.10
+BuildRequires:	babl-devel >= 0.1.12
 BuildRequires:	cairo-devel
 BuildRequires:	enscript
 BuildRequires:	exiv2-devel
+# libavformat >= 53.0.0, libavcodec >= 53.0.0
 BuildRequires:	ffmpeg-devel >= 0.8
 BuildRequires:	gdk-pixbuf2-devel >= 2.18.0
-BuildRequires:	glib2-devel >= 1:2.28.0
-%{?with_introspection:BuildRequires:	gobject-introspection-devel >= 0.10.0}
+BuildRequires:	gettext-tools
+BuildRequires:	glib2-devel >= 1:2.36.0
+%{?with_introspection:BuildRequires:	gobject-introspection-devel >= 1.32.0}
 BuildRequires:	graphviz
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	intltool >= 0.40.1
 BuildRequires:	jasper-devel >= 1.900.1
+BuildRequires:	json-glib-devel
+BuildRequires:	lcms2-devel >= 2.2
 BuildRequires:	lensfun-devel >= 0.2.5
 BuildRequires:	libjpeg-devel
 BuildRequires:	libopenraw-devel >= 0.0.5
@@ -55,16 +59,22 @@ BuildRequires:	libpng-devel
 BuildRequires:	librsvg-devel >= 1:2.14.0
 BuildRequires:	libspiro-devel
 BuildRequires:	libtool >= 2:2.2
-BuildRequires:	libv4l-devel
+BuildRequires:	libv4l-devel >= 1.0.1
+BuildRequires:	libwebp-devel
 BuildRequires:	lua51-devel >= 5.1.0
 BuildRequires:	pango-devel >= 1:1.10
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
+BuildRequires:	python >= 1:2.5.0
+# either one?
+#BuildRequires:	python-pygobject-devel >= 2.26
+BuildRequires:	python-pygobject3-devel >= 3.2
+BuildRequires:	poly2tri-c-devel
 BuildRequires:	ruby >= 1.9
-%{?with_vala:BuildRequires:	vala}
-Requires:	babl >= 0.1.10
+%{?with_vala:BuildRequires:	vala >= 2:0.20.0}
+Requires:	babl >= 0.1.12
 Requires:	gdk-pixbuf2 >= 2.18.0
-Requires:	glib2 >= 1:2.28.0
+Requires:	glib2 >= 1:2.36.0
 Requires:	jasper-libs >= 1.900.1
 Requires:	lensfun >= 0.2.5
 Requires:	libopenraw >= 0.0.5
@@ -93,8 +103,8 @@ Summary:	Header files for gegl library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki gegl
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	babl-devel >= 0.1.10
-Requires:	glib2-devel >= 1:2.28.0
+Requires:	babl-devel >= 0.1.12
+Requires:	glib2-devel >= 1:2.36.0
 
 %description devel
 Header files for gegl library.
@@ -179,6 +189,8 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with static_libs}
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.3/*.a
 %endif
+# examples with too common names
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/{hello-world,sdl-draw}
 
 %find_lang %{name}-0.3
 
@@ -199,8 +211,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/gegl-tester
 %attr(755,root,root) %{_bindir}/geglbuffer-add-image
 %attr(755,root,root) %{_bindir}/geglbuffer-clock
-%attr(755,root,root) %{_bindir}/hello-world
-%attr(755,root,root) %{_bindir}/sdl-draw
 %attr(755,root,root) %{_libdir}/libgegl-0.3.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgegl-0.3.so.0
 %attr(755,root,root) %{_libdir}/libgegl-npd-0.3.so
