@@ -1,3 +1,4 @@
+# TODO: mrg (https://github.com/hodefoting/mrg/ ?)
 #
 # Conditional build:
 %bcond_with	mmx		# use MMX instructions
@@ -19,13 +20,14 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.3.0
+Version:	0.3.2
 Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	http://ftp.gimp.org/pub/gegl/0.3/%{name}-%{version}.tar.bz2
-# Source0-md5:	6d71daab78377d5074a74651bbf7a76a
+# Source0-md5:	6955dd2ac208448c8a2a4bc7c7f37869
 Patch0:		%{name}-lua.patch
+Patch1:		%{name}-format.patch
 Patch2:		%{name}-ruby1.9.patch
 Patch3:		%{name}-build.patch
 Patch5:		umfpack.patch
@@ -36,7 +38,7 @@ BuildRequires:	UMFPACK-devel
 BuildRequires:	asciidoc
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	babl-devel >= 0.1.12
+BuildRequires:	babl-devel >= 0.1.14
 BuildRequires:	cairo-devel
 BuildRequires:	enscript
 BuildRequires:	exiv2-devel
@@ -44,6 +46,7 @@ BuildRequires:	exiv2-devel
 BuildRequires:	ffmpeg-devel >= 0.8
 BuildRequires:	gdk-pixbuf2-devel >= 2.18.0
 BuildRequires:	gettext-tools
+BuildRequires:	gexiv2-devel
 BuildRequires:	glib2-devel >= 1:2.36.0
 %{?with_introspection:BuildRequires:	gobject-introspection-devel >= 1.32.0}
 BuildRequires:	graphviz
@@ -54,10 +57,11 @@ BuildRequires:	json-glib-devel
 BuildRequires:	lcms2-devel >= 2.2
 BuildRequires:	lensfun-devel >= 0.2.5
 BuildRequires:	libjpeg-devel
-BuildRequires:	libopenraw-devel >= 0.0.5
 BuildRequires:	libpng-devel
+BuildRequires:	libraw-devel >= 0.15.4
 BuildRequires:	librsvg-devel >= 1:2.14.0
 BuildRequires:	libspiro-devel
+BuildRequires:	libtiff-devel >= 4.0.0
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	libv4l-devel >= 1.0.1
 BuildRequires:	libwebp-devel
@@ -72,13 +76,14 @@ BuildRequires:	python-pygobject3-devel >= 3.2
 BuildRequires:	poly2tri-c-devel
 BuildRequires:	ruby >= 1.9
 %{?with_vala:BuildRequires:	vala >= 2:0.20.0}
-Requires:	babl >= 0.1.12
+Requires:	babl >= 0.1.14
 Requires:	gdk-pixbuf2 >= 2.18.0
 Requires:	glib2 >= 1:2.36.0
 Requires:	jasper-libs >= 1.900.1
 Requires:	lensfun >= 0.2.5
-Requires:	libopenraw >= 0.0.5
+Requires:	libraw >= 0.15.4
 Requires:	librsvg >= 1:2.14.0
+Requires:	libtiff >= 4.0.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -103,7 +108,7 @@ Summary:	Header files for gegl library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki gegl
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	babl-devel >= 0.1.12
+Requires:	babl-devel >= 0.1.14
 Requires:	glib2-devel >= 1:2.36.0
 
 %description devel
@@ -154,6 +159,7 @@ API języka Vala dla biblioteki gegl.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch5 -p1
@@ -190,7 +196,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.3/*.a
 %endif
 # examples with too common names
-%{__rm} $RPM_BUILD_ROOT%{_bindir}/{hello-world,sdl-draw}
+%{__rm} $RPM_BUILD_ROOT%{_bindir}/{frame-counter,hello-world,sdl-draw,video-invert}
 
 %find_lang %{name}-0.3
 
@@ -208,6 +214,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/gegl-convert
 %attr(755,root,root) %{_bindir}/gegl-imgcmp
 %attr(755,root,root) %{_bindir}/gegl-slicer
+%attr(755,root,root) %{_bindir}/gegl-video
 %attr(755,root,root) %{_bindir}/gegl-tester
 %attr(755,root,root) %{_bindir}/geglbuffer-add-image
 %attr(755,root,root) %{_bindir}/geglbuffer-clock

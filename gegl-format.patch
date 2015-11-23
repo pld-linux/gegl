@@ -1,0 +1,112 @@
+--- gegl-0.3.2/operations/external/tiff-load.c.orig	2015-11-21 03:52:39.000000000 +0100
++++ gegl-0.3.2/operations/external/tiff-load.c	2015-11-22 16:49:12.660225294 +0100
+@@ -131,7 +131,7 @@
+                                  NULL, &error);
+       if (read < 0)
+         {
+-          g_warning(error->message);
++          g_warning("%s", error->message);
+           g_error_free(error);
+         }
+     }
+@@ -162,7 +162,7 @@
+                                          NULL, &error);
+               if (read < 0)
+                 {
+-                  g_warning(error->message);
++                  g_warning("%s",error->message);
+                   g_error_free(error);
+                   break;
+                 }
+@@ -215,7 +215,7 @@
+         position = g_seekable_tell(G_SEEKABLE(p->stream));
+       else
+         {
+-          g_warning(error->message);
++          g_warning("%s", error->message);
+           g_error_free(error);
+         }
+     }
+@@ -257,7 +257,7 @@
+                                 NULL, &error);
+   if (!closed)
+     {
+-      g_warning(error->message);
++      g_warning("%s", error->message);
+       g_error_free(error);
+     }
+ 
+@@ -295,7 +295,7 @@
+                                NULL, &error);
+       if (info == NULL)
+         {
+-          g_warning(error->message);
++          g_warning("%s", error->message);
+           g_error_free(error);
+         }
+       else
+@@ -701,7 +701,7 @@
+         p->can_seek = g_seekable_can_seek(G_SEEKABLE(p->stream));
+       if (p->stream == NULL)
+         {
+-          g_warning(error->message);
++          g_warning("%s", error->message);
+           g_error_free(error);
+           cleanup(operation);
+           return;
+--- gegl-0.3.2/operations/external/tiff-save.c.orig	2015-11-21 04:22:59.000000000 +0100
++++ gegl-0.3.2/operations/external/tiff-save.c	2015-11-22 17:47:58.636818466 +0100
+@@ -117,7 +117,7 @@
+                                       NULL, &error);
+       if (written < 0)
+         {
+-          g_warning(error->message);
++          g_warning("%s", error->message);
+           g_error_free(error);
+         }
+     }
+@@ -165,7 +165,7 @@
+         position = g_seekable_tell(G_SEEKABLE(p->stream));
+       else
+         {
+-          g_warning(error->message);
++          g_warning("%s", error->message);
+           g_error_free(error);
+         }
+     }
+@@ -216,7 +216,7 @@
+                                           NULL, &error);
+           if (written < 0)
+             {
+-                  g_warning(error->message);
++                  g_warning("%s", error->message);
+                   g_error_free(error);
+                   break;
+             }
+@@ -229,7 +229,7 @@
+                                  NULL, &error);
+   if (!closed)
+     {
+-      g_warning(error->message);
++      g_warning("%s", error->message);
+       g_error_free(error);
+     }
+ 
+@@ -266,7 +266,7 @@
+                                NULL, &error);
+       if (info == NULL)
+         {
+-          g_warning(error->message);
++          g_warning("%s", error->message);
+           g_error_free(error);
+         }
+       else
+@@ -540,7 +540,7 @@
+   if (p->stream == NULL)
+     {
+       status = FALSE;
+-      g_warning(error->message);
++      g_warning("%s", error->message);
+       goto cleanup;
+     }
+ 
