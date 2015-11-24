@@ -1,4 +1,3 @@
-# TODO: mrg (https://github.com/hodefoting/mrg/ ?)
 #
 # Conditional build:
 %bcond_with	mmx		# use MMX instructions
@@ -66,6 +65,7 @@ BuildRequires:	libtool >= 2:2.2
 BuildRequires:	libv4l-devel >= 1.0.1
 BuildRequires:	libwebp-devel
 BuildRequires:	lua51-devel >= 5.1.0
+BuildRequires:	mrg-devel
 BuildRequires:	pango-devel >= 1:1.10
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
