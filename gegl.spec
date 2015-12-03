@@ -19,13 +19,12 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.3.2
+Version:	0.3.4
 Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	http://ftp.gimp.org/pub/gegl/0.3/%{name}-%{version}.tar.bz2
-# Source0-md5:	6955dd2ac208448c8a2a4bc7c7f37869
-Patch0:		%{name}-lua.patch
+# Source0-md5:	c19478321594d715a4cb324a0decda6f
 Patch1:		%{name}-format.patch
 Patch2:		%{name}-ruby1.9.patch
 Patch3:		%{name}-build.patch
@@ -64,7 +63,7 @@ BuildRequires:	libtiff-devel >= 4.0.0
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	libv4l-devel >= 1.0.1
 BuildRequires:	libwebp-devel
-BuildRequires:	lua51-devel >= 5.1.0
+BuildRequires:	lua51-devel >= 5.1.5-2
 BuildRequires:	mrg-devel
 BuildRequires:	pango-devel >= 1:1.10
 BuildRequires:	perl-base
@@ -158,7 +157,6 @@ API języka Vala dla biblioteki gegl.
 
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -195,8 +193,6 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with static_libs}
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.3/*.a
 %endif
-# examples with too common names
-%{__rm} $RPM_BUILD_ROOT%{_bindir}/{frame-counter,hello-world,sdl-draw,video-invert}
 
 %find_lang %{name}-0.3
 
@@ -209,15 +205,9 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}-0.3.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
-%attr(755,root,root) %{_bindir}/2geglbuffer
 %attr(755,root,root) %{_bindir}/gegl
-%attr(755,root,root) %{_bindir}/gegl-convert
 %attr(755,root,root) %{_bindir}/gegl-imgcmp
-%attr(755,root,root) %{_bindir}/gegl-slicer
-%attr(755,root,root) %{_bindir}/gegl-video
 %attr(755,root,root) %{_bindir}/gegl-tester
-%attr(755,root,root) %{_bindir}/geglbuffer-add-image
-%attr(755,root,root) %{_bindir}/geglbuffer-clock
 %attr(755,root,root) %{_libdir}/libgegl-0.3.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libgegl-0.3.so.0
 %attr(755,root,root) %{_libdir}/libgegl-npd-0.3.so
