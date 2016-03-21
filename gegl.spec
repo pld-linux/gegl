@@ -19,12 +19,12 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.3.4
-Release:	3
+Version:	0.3.6
+Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	http://ftp.gimp.org/pub/gegl/0.3/%{name}-%{version}.tar.bz2
-# Source0-md5:	c19478321594d715a4cb324a0decda6f
+# Source0-md5:	e6b4eb720ef541aab8c9b12b1a517a78
 Patch1:		%{name}-format.patch
 Patch2:		%{name}-ruby1.9.patch
 Patch3:		%{name}-build.patch
@@ -40,8 +40,8 @@ BuildRequires:	babl-devel >= 0.1.14
 BuildRequires:	cairo-devel
 BuildRequires:	enscript
 BuildRequires:	exiv2-devel
-# libavformat >= 53.0.0, libavcodec >= 53.0.0
-BuildRequires:	ffmpeg-devel >= 0.8
+# libavformat >= 55.48.100, libavcodec >= 55.69.100, libswscale >= 2.6.100
+BuildRequires:	ffmpeg-devel >= 2.3
 BuildRequires:	gdk-pixbuf2-devel >= 2.18.0
 BuildRequires:	gettext-tools
 BuildRequires:	gexiv2-devel
@@ -64,7 +64,7 @@ BuildRequires:	libtool >= 2:2.2
 BuildRequires:	libv4l-devel >= 1.0.1
 BuildRequires:	libwebp-devel
 BuildRequires:	lua51-devel >= 5.1.5-2
-BuildRequires:	mrg-devel
+BuildRequires:	mrg-devel >= 0-0.20160310
 BuildRequires:	pango-devel >= 1:1.10
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
@@ -83,6 +83,7 @@ Requires:	lensfun >= 0.2.5
 Requires:	libraw >= 0.15.4
 Requires:	librsvg >= 1:2.14.0
 Requires:	libtiff >= 4.0.0
+Requires:	mrg-libs >= 0-0.20160310
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
