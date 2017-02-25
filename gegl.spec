@@ -19,12 +19,12 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.3.8
-Release:	2
+Version:	0.3.12
+Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	http://ftp.gimp.org/pub/gegl/0.3/%{name}-%{version}.tar.bz2
-# Source0-md5:	d2df2fe2236e3d5fe5bfc67d1c10cab4
+# Source0-md5:	c97663a47347fe65d462c081bb809007
 Patch2:		%{name}-ruby1.9.patch
 Patch3:		%{name}-build.patch
 Patch5:		umfpack.patch
@@ -35,7 +35,7 @@ BuildRequires:	UMFPACK-devel
 BuildRequires:	asciidoc
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	babl-devel >= 0.1.14
+BuildRequires:	babl-devel >= 0.1.24
 BuildRequires:	cairo-devel
 BuildRequires:	enscript
 BuildRequires:	exiv2-devel
@@ -74,7 +74,7 @@ BuildRequires:	python-pygobject3-devel >= 3.2
 BuildRequires:	poly2tri-c-devel
 BuildRequires:	ruby >= 1.9
 %{?with_vala:BuildRequires:	vala >= 2:0.20.0}
-Requires:	babl >= 0.1.14
+Requires:	babl >= 0.1.24
 Requires:	gdk-pixbuf2 >= 2.18.0
 Requires:	glib2 >= 1:2.36.0
 Requires:	jasper-libs >= 1.900.1
@@ -107,7 +107,7 @@ Summary:	Header files for gegl library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki gegl
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	babl-devel >= 0.1.14
+Requires:	babl-devel >= 0.1.24
 Requires:	glib2-devel >= 1:2.36.0
 
 %description devel
