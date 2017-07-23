@@ -19,16 +19,15 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.3.14
-Release:	2
+Version:	0.3.18
+Release:	1
 License:	LGPL v3+
 Group:		Libraries
-Source0:	http://ftp.gimp.org/pub/gegl/0.3/%{name}-%{version}.tar.bz2
-# Source0-md5:	0c4fbdc68d9bcebb21898379a438b862
+Source0:	https://download.gimp.org/pub/gegl/0.3/%{name}-%{version}.tar.bz2
+# Source0-md5:	6e5c6f229261478dc436a38c84405b2a
 Patch2:		%{name}-ruby1.9.patch
 Patch3:		%{name}-build.patch
 Patch5:		umfpack.patch
-Patch6:		G_LOG_DOMAIN.patch
 URL:		http://www.gegl.org/
 BuildRequires:	OpenEXR-devel
 BuildRequires:	SDL-devel
@@ -65,7 +64,7 @@ BuildRequires:	libv4l-devel >= 1.0.1
 BuildRequires:	libwebp-devel
 BuildRequires:	lua51-devel >= 5.1.5-2
 BuildRequires:	mrg-devel >= 0-0.20160310
-BuildRequires:	pango-devel >= 1:1.10
+BuildRequires:	pango-devel >= 1:1.38.0
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
 BuildRequires:	python >= 1:2.5.0
@@ -84,6 +83,7 @@ Requires:	libraw >= 0.15.4
 Requires:	librsvg >= 1:2.14.0
 Requires:	libtiff >= 4.0.0
 Requires:	mrg-libs >= 0-0.20160310
+Requires:	pango >= 1:1.38.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -164,7 +164,6 @@ API języka Vala dla biblioteki gegl.
 %patch2 -p1
 %patch3 -p1
 %patch5 -p1
-%patch6 -p1
 
 %build
 %{__libtoolize}
