@@ -35,16 +35,16 @@ BuildRequires:	UMFPACK-devel
 BuildRequires:	asciidoc
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	babl-devel >= 0.1.24
+BuildRequires:	babl-devel >= 0.1.26
 BuildRequires:	cairo-devel
 BuildRequires:	enscript
 BuildRequires:	exiv2-devel
 # libavformat >= 55.48.100, libavcodec >= 55.69.100, libswscale >= 2.6.100
 BuildRequires:	ffmpeg-devel >= 2.3
-BuildRequires:	gdk-pixbuf2-devel >= 2.18.0
+BuildRequires:	gdk-pixbuf2-devel >= 2.32.0
 BuildRequires:	gettext-tools
 BuildRequires:	gexiv2-devel
-BuildRequires:	glib2-devel >= 1:2.36.0
+BuildRequires:	glib2-devel >= 1:2.44.0
 %{?with_introspection:BuildRequires:	gobject-introspection-devel >= 1.32.0}
 BuildRequires:	graphviz
 BuildRequires:	gtk-doc >= 1.0
@@ -74,9 +74,9 @@ BuildRequires:	python-pygobject3-devel >= 3.2
 BuildRequires:	poly2tri-c-devel
 BuildRequires:	ruby >= 1.9
 %{?with_vala:BuildRequires:	vala >= 2:0.20.0}
-Requires:	babl >= 0.1.24
-Requires:	gdk-pixbuf2 >= 2.18.0
-Requires:	glib2 >= 1:2.36.0
+Requires:	babl >= 0.1.26
+Requires:	gdk-pixbuf2 >= 2.32.0
+Requires:	glib2 >= 1:2.44.0
 Requires:	jasper-libs >= 1.900.1
 Requires:	lensfun >= 0.2.5
 Requires:	libraw >= 0.15.4
@@ -108,8 +108,8 @@ Summary:	Header files for gegl library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki gegl
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	babl-devel >= 0.1.24
-Requires:	glib2-devel >= 1:2.36.0
+Requires:	babl-devel >= 0.1.26
+Requires:	glib2-devel >= 1:2.44.0
 
 %description devel
 Header files for gegl library.
