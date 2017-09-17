@@ -16,15 +16,19 @@
 %if %{without introspection}
 %undefine	with_vala
 %endif
+
+%define	babl_version	0.1.30
+%define	mrg_version	0.1.0-1.20170715.1
+
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.3.18
+Version:	0.3.20
 Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.3/%{name}-%{version}.tar.bz2
-# Source0-md5:	6e5c6f229261478dc436a38c84405b2a
+# Source0-md5:	5a31ebb855f525fecedccf6b84be4a07
 Patch2:		%{name}-ruby1.9.patch
 Patch3:		%{name}-build.patch
 Patch5:		umfpack.patch
@@ -35,7 +39,7 @@ BuildRequires:	UMFPACK-devel
 BuildRequires:	asciidoc
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.11
-BuildRequires:	babl-devel >= 0.1.26
+BuildRequires:	babl-devel >= %{babl_version}
 BuildRequires:	cairo-devel
 BuildRequires:	enscript
 BuildRequires:	exiv2-devel
@@ -63,7 +67,7 @@ BuildRequires:	libtool >= 2:2.2
 BuildRequires:	libv4l-devel >= 1.0.1
 BuildRequires:	libwebp-devel
 BuildRequires:	lua51-devel >= 5.1.5-2
-BuildRequires:	mrg-devel >= 0-0.20160310
+BuildRequires:	mrg-devel >= %{mrg_version}
 BuildRequires:	pango-devel >= 1:1.38.0
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
@@ -74,7 +78,7 @@ BuildRequires:	python-pygobject3-devel >= 3.2
 BuildRequires:	poly2tri-c-devel
 BuildRequires:	ruby >= 1.9
 %{?with_vala:BuildRequires:	vala >= 2:0.20.0}
-Requires:	babl >= 0.1.26
+Requires:	babl >= %{babl_version}
 Requires:	gdk-pixbuf2 >= 2.32.0
 Requires:	glib2 >= 1:2.44.0
 Requires:	jasper-libs >= 1.900.1
@@ -82,7 +86,7 @@ Requires:	lensfun >= 0.2.5
 Requires:	libraw >= 0.15.4
 Requires:	librsvg >= 1:2.14.0
 Requires:	libtiff >= 4.0.0
-Requires:	mrg-libs >= 0-0.20160310
+Requires:	mrg-libs >= %{mrg_version}
 Requires:	pango >= 1:1.38.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -108,7 +112,7 @@ Summary:	Header files for gegl library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki gegl
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	babl-devel >= 0.1.26
+Requires:	babl-devel >= %{babl_version}
 Requires:	glib2-devel >= 1:2.44.0
 
 %description devel
@@ -208,6 +212,7 @@ rm -rf $RPM_BUILD_ROOT
 %files -f %{name}-0.3.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
+%attr(755,root,root) %{_bindir}/gcut
 %attr(755,root,root) %{_bindir}/gegl
 %attr(755,root,root) %{_bindir}/gegl-imgcmp
 %attr(755,root,root) %{_libdir}/libgegl-0.3.so.*.*.*
