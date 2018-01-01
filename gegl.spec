@@ -17,32 +17,32 @@
 %undefine	with_vala
 %endif
 
-%define	babl_version	0.1.30
+%define	babl_version	0.1.38
 %define	mrg_version	0.1.0-1.20170715.1
 
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.3.20
+Version:	0.3.26
 Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.3/%{name}-%{version}.tar.bz2
-# Source0-md5:	5a31ebb855f525fecedccf6b84be4a07
+# Source0-md5:	b970bc80bc5d50170d4cb96d0a1563ac
 Patch2:		%{name}-ruby1.9.patch
 Patch3:		%{name}-build.patch
 Patch5:		umfpack.patch
 URL:		http://www.gegl.org/
-BuildRequires:	OpenEXR-devel
-BuildRequires:	SDL-devel
+BuildRequires:	OpenEXR-devel >= 1.6.1
+BuildRequires:	SDL-devel >= 1.2.0
 BuildRequires:	UMFPACK-devel
 BuildRequires:	asciidoc
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	babl-devel >= %{babl_version}
-BuildRequires:	cairo-devel
+BuildRequires:	cairo-devel >= 1.12.2
 BuildRequires:	enscript
-BuildRequires:	exiv2-devel
+BuildRequires:	exiv2-devel >= 0.25
 # libavformat >= 55.48.100, libavcodec >= 55.69.100, libswscale >= 2.6.100
 BuildRequires:	ffmpeg-devel >= 2.3
 BuildRequires:	gdk-pixbuf2-devel >= 2.32.0
@@ -55,17 +55,17 @@ BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	intltool >= 0.40.1
 BuildRequires:	jasper-devel >= 1.900.1
 BuildRequires:	json-glib-devel
-BuildRequires:	lcms2-devel >= 2.2
+BuildRequires:	lcms2-devel >= 2.8
 BuildRequires:	lensfun-devel >= 0.2.5
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libraw-devel >= 0.15.4
-BuildRequires:	librsvg-devel >= 1:2.14.0
+BuildRequires:	librsvg-devel >= 1:2.40.6
 BuildRequires:	libspiro-devel
 BuildRequires:	libtiff-devel >= 4.0.0
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	libv4l-devel >= 1.0.1
-BuildRequires:	libwebp-devel
+BuildRequires:	libwebp-devel >= 0.5.0
 BuildRequires:	lua51-devel >= 5.1.5-2
 BuildRequires:	mrg-devel >= %{mrg_version}
 BuildRequires:	pango-devel >= 1:1.38.0
@@ -84,7 +84,7 @@ Requires:	glib2 >= 1:2.44.0
 Requires:	jasper-libs >= 1.900.1
 Requires:	lensfun >= 0.2.5
 Requires:	libraw >= 0.15.4
-Requires:	librsvg >= 1:2.14.0
+Requires:	librsvg >= 1:2.40.6
 Requires:	libtiff >= 4.0.0
 Requires:	mrg-libs >= %{mrg_version}
 Requires:	pango >= 1:1.38.0
