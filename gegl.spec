@@ -17,18 +17,18 @@
 %undefine	with_vala
 %endif
 
-%define	babl_version	0.1.38
-%define	mrg_version	0.1.0-1.20170715.1
+%define	babl_version	0.1.42
+%define	mrg_version	0.1.2-1.20180122.1
 
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.3.26
+Version:	0.3.28
 Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.3/%{name}-%{version}.tar.bz2
-# Source0-md5:	b970bc80bc5d50170d4cb96d0a1563ac
+# Source0-md5:	543c3104152c594c022ab54f06403d53
 Patch2:		%{name}-ruby1.9.patch
 Patch3:		%{name}-build.patch
 Patch5:		umfpack.patch
