@@ -29,9 +29,10 @@ License:	LGPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.3/%{name}-%{version}.tar.bz2
 # Source0-md5:	e6758d2526c27dd3a34d3470aa844112
-Patch2:		%{name}-ruby1.9.patch
-Patch3:		%{name}-build.patch
-Patch5:		umfpack.patch
+Patch1:		%{name}-ruby1.9.patch
+Patch2:		%{name}-build.patch
+Patch3:		umfpack.patch
+Patch4:		%{name}-ffmpeg4.patch
 URL:		http://www.gegl.org/
 BuildRequires:	OpenEXR-devel >= 1.6.1
 BuildRequires:	SDL-devel >= 1.2.0
@@ -165,9 +166,10 @@ API języka Vala dla biblioteki gegl.
 
 %prep
 %setup -q
+%patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch5 -p1
+%patch4 -p0
 
 %build
 %{__libtoolize}
