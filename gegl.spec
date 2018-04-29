@@ -23,12 +23,12 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.3.34
-Release:	2
+Version:	0.4.0
+Release:	1
 License:	LGPL v3+
 Group:		Libraries
-Source0:	https://download.gimp.org/pub/gegl/0.3/%{name}-%{version}.tar.bz2
-# Source0-md5:	e6758d2526c27dd3a34d3470aa844112
+Source0:	https://download.gimp.org/pub/gegl/0.4/%{name}-%{version}.tar.bz2
+# Source0-md5:	70c054f584d32cd03a15b87fd8ace9e4
 Patch1:		%{name}-ruby1.9.patch
 Patch2:		%{name}-build.patch
 Patch3:		umfpack.patch
@@ -196,14 +196,14 @@ rm -rf $RPM_BUILD_ROOT
 	gtkdochtmldir=%{_gtkdocdir}/gegl
 
 # obsoleted by pkg-config
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libgegl*-0.3.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libgegl*-0.4.la
 # dlopened modules
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.3/*.la
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.4/*.la
 %if %{with static_libs}
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.3/*.a
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.4/*.a
 %endif
 
-%find_lang %{name}-0.3
+%find_lang %{name}-0.4
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -211,35 +211,35 @@ rm -rf $RPM_BUILD_ROOT
 %post	-p /sbin/ldconfig
 %postun	-p /sbin/ldconfig
 
-%files -f %{name}-0.3.lang
+%files -f %{name}-0.4.lang
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README
 %attr(755,root,root) %{_bindir}/gcut
 %attr(755,root,root) %{_bindir}/gegl
 %attr(755,root,root) %{_bindir}/gegl-imgcmp
-%attr(755,root,root) %{_libdir}/libgegl-0.3.so.*.*.*
-%attr(755,root,root) %ghost %{_libdir}/libgegl-0.3.so.0
-%attr(755,root,root) %{_libdir}/libgegl-npd-0.3.so
-%attr(755,root,root) %{_libdir}/libgegl-sc-0.3.so
-%{?with_introspection:%{_libdir}/girepository-1.0/Gegl-0.3.typelib}
-%dir %{_libdir}/gegl-0.3
-%attr(755,root,root) %{_libdir}/gegl-0.3/*.so
-%{_libdir}/gegl-0.3/grey2.json
+%attr(755,root,root) %{_libdir}/libgegl-0.4.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgegl-0.4.so.0
+%attr(755,root,root) %{_libdir}/libgegl-npd-0.4.so
+%attr(755,root,root) %{_libdir}/libgegl-sc-0.4.so
+%{?with_introspection:%{_libdir}/girepository-1.0/Gegl-0.4.typelib}
+%dir %{_libdir}/gegl-0.4
+%attr(755,root,root) %{_libdir}/gegl-0.4/*.so
+%{_libdir}/gegl-0.4/grey2.json
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgegl-0.3.so
-%{_includedir}/gegl-0.3
-%{?with_introspection:%{_datadir}/gir-1.0/Gegl-0.3.gir}
-%{_pkgconfigdir}/gegl-0.3.pc
-%{_pkgconfigdir}/gegl-sc-0.3.pc
+%attr(755,root,root) %{_libdir}/libgegl-0.4.so
+%{_includedir}/gegl-0.4
+%{?with_introspection:%{_datadir}/gir-1.0/Gegl-0.4.gir}
+%{_pkgconfigdir}/gegl-0.4.pc
+%{_pkgconfigdir}/gegl-sc-0.4.pc
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/libgegl-0.3.a
-%{_libdir}/libgegl-npd-0.3.a
-%{_libdir}/libgegl-sc-0.3.a
+%{_libdir}/libgegl-0.4.a
+%{_libdir}/libgegl-npd-0.4.a
+%{_libdir}/libgegl-sc-0.4.a
 %endif
 
 %if %{with doc}
@@ -251,6 +251,6 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with vala}
 %files -n vala-gegl
 %defattr(644,root,root,755)
-%{_datadir}/vala/vapi/gegl-0.3.deps
-%{_datadir}/vala/vapi/gegl-0.3.vapi
+%{_datadir}/vala/vapi/gegl-0.4.deps
+%{_datadir}/vala/vapi/gegl-0.4.vapi
 %endif
