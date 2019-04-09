@@ -3,6 +3,7 @@
 %bcond_with	mmx		# use MMX instructions
 %bcond_with	sse		# use SSE instructions
 %bcond_without	doc		# apidocs
+%bcond_without	lua		# without lua support
 %bcond_without	static_libs	# static library
 %bcond_without	introspection	# API introspection
 %bcond_without	vala		# Vala API
@@ -15,6 +16,10 @@
 %endif
 %if %{without introspection}
 %undefine	with_vala
+%endif
+
+%ifarch x32
+%undefine	with_lua
 %endif
 
 %define	babl_version	0.1.62
@@ -68,8 +73,10 @@ BuildRequires:	libtiff-devel >= 4.0.0
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	libv4l-devel >= 1.0.1
 BuildRequires:	libwebp-devel >= 0.5.0
+%if %{with lua}
 BuildRequires:	luajit-devel >= 2.0.4
 BuildRequires:	lua51-devel >= 5.1.5-2
+%endif
 BuildRequires:	mrg-devel >= %{mrg_version}
 BuildRequires:	pango-devel >= 1:1.38.0
 BuildRequires:	perl-base
@@ -189,7 +196,8 @@ API języka Vala dla biblioteki gegl.
 	%{!?with_sse:--disable-sse} \
 	--disable-silent-rules \
 	%{?with_static_libs:--enable-static} \
-	--with-vala%{!?with_vala:=no}
+	--with-vala%{!?with_vala:=no} \
+	%{__with_without lua}
 %{__make}
 
 %install
