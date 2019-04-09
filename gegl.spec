@@ -33,6 +33,7 @@ Patch1:		%{name}-ruby1.9.patch
 Patch2:		%{name}-build.patch
 Patch3:		umfpack.patch
 Patch4:		%{name}-Wformat-security.patch
+Patch5:		%{name}-without-lua.patch
 URL:		http://www.gegl.org/
 BuildRequires:	OpenEXR-devel >= 1.6.1
 BuildRequires:	SDL-devel >= 1.2.0
@@ -172,6 +173,7 @@ API języka Vala dla biblioteki gegl.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %{__libtoolize}
