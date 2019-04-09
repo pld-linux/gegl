@@ -17,21 +17,22 @@
 %undefine	with_vala
 %endif
 
-%define	babl_version	0.1.58
-%define	mrg_version	0.1.2-1.20181024.1
+%define	babl_version	0.1.62
+%define	mrg_version	0.1.2-1.20190322.1
 
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.4.12
+Version:	0.4.14
 Release:	1
 License:	LGPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.4/%{name}-%{version}.tar.bz2
-# Source0-md5:	533fcf1f07aad911472f48bfa8e87a5b
+# Source0-md5:	88004f3a204e2506cd0cc445eba8d63e
 Patch1:		%{name}-ruby1.9.patch
 Patch2:		%{name}-build.patch
 Patch3:		umfpack.patch
+Patch4:		%{name}-Wformat-security.patch
 URL:		http://www.gegl.org/
 BuildRequires:	OpenEXR-devel >= 1.6.1
 BuildRequires:	SDL-devel >= 1.2.0
@@ -168,6 +169,7 @@ API języka Vala dla biblioteki gegl.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__libtoolize}
