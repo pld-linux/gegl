@@ -67,11 +67,13 @@ BuildRequires:	libtiff-devel >= 4.0.0
 BuildRequires:	libtool >= 2:2.2
 BuildRequires:	libv4l-devel >= 1.0.1
 BuildRequires:	libwebp-devel >= 0.5.0
+BuildRequires:	luajit-devel >= 2.0.4
 BuildRequires:	lua51-devel >= 5.1.5-2
 BuildRequires:	mrg-devel >= %{mrg_version}
 BuildRequires:	pango-devel >= 1:1.38.0
 BuildRequires:	perl-base
 BuildRequires:	pkgconfig
+BuildRequires:	poppler-glib-devel >= 0.71.0
 BuildRequires:	python >= 1:2.5.0
 # either one?
 #BuildRequires:	python-pygobject-devel >= 2.26
