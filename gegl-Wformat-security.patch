@@ -1,0 +1,11 @@
+--- gegl-0.4.14/bin/ui-core.c~	2019-03-01 13:59:14.000000000 +0100
++++ gegl-0.4.14/bin/ui-core.c	2019-04-09 07:22:31.414887340 +0200
+@@ -763,7 +763,7 @@
+               G_SPAWN_SEARCH_PATH|G_SPAWN_SEARCH_PATH_FROM_ENVP,
+               NULL, NULL, &thumbnailer_pid, &error);
+           if (error)
+-            g_warning (error->message);
++            g_warning ("%s", error->message);
+         }
+         g_usleep (1000);
+       }
