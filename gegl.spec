@@ -1,4 +1,7 @@
 #
+# TODO:
+# - links against zstd (some of the BR: misses dep on zstd)
+#
 # Conditional build:
 %bcond_with	mmx		# use MMX instructions
 %bcond_with	sse		# use SSE instructions
