@@ -1,0 +1,10 @@
+--- gegl-0.4.18/seamless-clone/meson.build.orig	2019-10-27 01:01:07.000000000 +0200
++++ gegl-0.4.18/seamless-clone/meson.build	2019-11-30 19:46:21.886515954 +0100
+@@ -22,6 +22,7 @@
+     glib,
+     gobject,
+     poly2tri_c,
++    math,
+   ],
+   link_with: [
+     gegl_lib,

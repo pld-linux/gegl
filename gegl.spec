@@ -1,22 +1,11 @@
 #
-# TODO:
-# - links against zstd (some of the BR: misses dep on zstd)
-#
 # Conditional build:
-%bcond_with	mmx		# use MMX instructions
-%bcond_with	sse		# use SSE instructions
 %bcond_without	doc		# apidocs
 %bcond_without	lua		# without lua support
 %bcond_without	static_libs	# static library
 %bcond_without	introspection	# API introspection
 %bcond_without	vala		# Vala API
 
-%ifarch %{x8664} athlon pentium3 pentium4
-%define	with_mmx	1
-%endif
-%ifarch %{x8664} pentium3 pentium4
-%define	with_sse	1
-%endif
 %if %{without introspection}
 %undefine	with_vala
 %endif
@@ -25,29 +14,29 @@
 %undefine	with_lua
 %endif
 
-%define	babl_version	0.1.62
+%define	babl_version	0.1.72
 %define	mrg_version	0.1.2-1.20190322.1
 
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.4.16
-Release:	2
-License:	LGPL v3+
+Version:	0.4.18
+Release:	1
+License:	LGPL v3+/GPL v3+
 Group:		Libraries
-Source0:	https://download.gimp.org/pub/gegl/0.4/%{name}-%{version}.tar.bz2
-# Source0-md5:	cb17ac529a882f25f54c0115c63d4027
+Source0:	https://download.gimp.org/pub/gegl/0.4/%{name}-%{version}.tar.xz
+# Source0-md5:	567f9e6c0a0a1a4145a1a1b254ca9ac5
 Patch1:		%{name}-ruby1.9.patch
 Patch2:		%{name}-build.patch
 Patch3:		umfpack.patch
+Patch4:		%{name}-link.patch
 URL:		http://www.gegl.org/
 BuildRequires:	OpenEXR-devel >= 1.6.1
-BuildRequires:	SDL-devel >= 1.2.0
+BuildRequires:	SDL2-devel >= 2.0.5
 BuildRequires:	UMFPACK-devel
 BuildRequires:	asciidoc
-BuildRequires:	autoconf >= 2.54
-BuildRequires:	automake >= 1:1.11
 BuildRequires:	babl-devel >= %{babl_version}
+BuildRequires:	bash
 BuildRequires:	cairo-devel >= 1.12.2
 BuildRequires:	enscript
 BuildRequires:	exiv2-devel >= 0.25
@@ -61,45 +50,54 @@ BuildRequires:	glib2-devel >= 1:2.44.0
 BuildRequires:	graphviz
 BuildRequires:	gtk-doc >= 1.0
 BuildRequires:	jasper-devel >= 1.900.1
-BuildRequires:	json-glib-devel
+BuildRequires:	json-glib-devel >= 1.2.6
 BuildRequires:	lcms2-devel >= 2.8
 BuildRequires:	lensfun-devel >= 0.2.5
-BuildRequires:	libjpeg-devel
+BuildRequires:	libjpeg-devel >= 1.0.0
+BuildRequires:	libnsgif-devel
 BuildRequires:	libpng-devel >= 2:1.6.0
 BuildRequires:	libraw-devel >= 0.15.4
 BuildRequires:	librsvg-devel >= 1:2.40.6
-BuildRequires:	libspiro-devel
+BuildRequires:	libspiro-devel >= 0.5.0
 BuildRequires:	libtiff-devel >= 4.0.0
-BuildRequires:	libtool >= 2:2.2
-# as of 0.4.16, internal copy of code is used
-#BuildRequires:	libv4l-devel >= 1.0.1
+BuildRequires:	libv4l-devel >= 1.0.1
 BuildRequires:	libwebp-devel >= 0.5.0
 %if %{with lua}
 BuildRequires:	luajit-devel >= 2.0.4
 BuildRequires:	lua51-devel >= 5.1.5-2
 %endif
+BuildRequires:	meson >= 0.50.0
 BuildRequires:	mrg-devel >= %{mrg_version}
+BuildRequires:	ninja >= 1.5
 BuildRequires:	pango-devel >= 1:1.38.0
 BuildRequires:	perl-base >= 5
 BuildRequires:	pkgconfig
 BuildRequires:	poppler-glib-devel >= 0.71.0
-BuildRequires:	python >= 1:2.5.0
-# either one?
-#BuildRequires:	python-pygobject-devel >= 2.26
-BuildRequires:	python-pygobject3-devel >= 3.2
+BuildRequires:	python3 >= 1:3.2
+%if %{with introspection}
+# for tests only
+#BuildRequires:	python-pygobject3-devel >= 3.2.0
+%endif
 BuildRequires:	poly2tri-c-devel
+BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	ruby >= 1.9
+BuildRequires:	tar >= 1:1.22
 %{?with_vala:BuildRequires:	vala >= 2:0.20.0}
+BuildRequires:	xz
 BuildRequires:	zlib-devel >= 1.2.0
+Requires:	OpenEXR >= 1.6.1
+Requires:	SDL2 >= 2.0.5
 Requires:	babl >= %{babl_version}
 Requires:	cairo >= 1.12.2
 Requires:	gdk-pixbuf2 >= 2.32.0
 Requires:	glib2 >= 1:2.44.0
 Requires:	jasper-libs >= 1.900.1
+Requires:	json-glib >= 1.2.6
 Requires:	lcms2 >= 2.8
 Requires:	lensfun >= 0.2.5
 Requires:	libraw >= 0.15.4
 Requires:	librsvg >= 1:2.40.6
+Requires:	libspiro >= 0.5.0
 Requires:	libtiff >= 4.0.0
 Requires:	libwebp >= 0.5.0
 Requires:	mrg-libs >= %{mrg_version}
@@ -132,7 +130,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	babl-devel >= %{babl_version}
 Requires:	glib2-devel >= 1:2.44.0
-Requires:	json-glib-devel
+Requires:	json-glib-devel >= 1.2.6
 Requires:	poly2tri-c-devel
 
 %description devel
@@ -188,39 +186,22 @@ API języka Vala dla biblioteki gegl.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	CPPFLAGS="%{rpmcppflags} -I/usr/include/umfpack" \
-	--enable-docs%{!?with_doc:=no} \
-	%{?with_introspection:--enable-introspection} \
-	%{!?with_mmx:--disable-mmx} \
-	%{!?with_sse:--disable-sse} \
-	--disable-silent-rules \
-	%{?with_static_libs:--enable-static} \
-	--with-vala%{!?with_vala:=no} \
-	%{__with_without lua}
-%{__make}
+CPPFLAGS="%{rpmcppflags} -I/usr/include/umfpack"
+%meson build \
+	%{?with_doc:-Ddocs=true} \
+	%{!?with_introspection:-Dintrospection=false} \
+	%{!?with_lua:-Dlua=disabled} \
+	-Dworkshop=true
+
+%ninja_build -C build
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install \
-	DESTDIR=$RPM_BUILD_ROOT \
-	gtkdochtmldir=%{_gtkdocdir}/gegl
-
-# obsoleted by pkg-config
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/libgegl*-0.4.la
-# dlopened modules
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.4/*.la
-%if %{with static_libs}
-%{__rm} $RPM_BUILD_ROOT%{_libdir}/gegl-0.4/*.a
-%endif
+%ninja_install -C build
 
 %find_lang %{name}-0.4
 
@@ -232,8 +213,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}-0.4.lang
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README
-%attr(755,root,root) %{_bindir}/gcut
+%doc AUTHORS MAINTAINERS
 %attr(755,root,root) %{_bindir}/gegl
 %attr(755,root,root) %{_bindir}/gegl-imgcmp
 %attr(755,root,root) %{_libdir}/libgegl-0.4.so.*.*.*
@@ -244,6 +224,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/gegl-0.4
 %attr(755,root,root) %{_libdir}/gegl-0.4/*.so
 %{_libdir}/gegl-0.4/grey2.json
+%if %{with lua}
+%dir %{_datadir}/gegl-0.4
+%{_datadir}/gegl-0.4/lua
+%endif
 
 %files devel
 %defattr(644,root,root,755)
@@ -264,6 +248,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with doc}
 %files apidocs
 %defattr(644,root,root,755)
+%doc build/docs/{ophtml,*.html,*.png}
 %{_gtkdocdir}/gegl
 %endif
 
