@@ -1,0 +1,11 @@
+--- gegl-0.4.18/bin/meson.build.orig	2019-10-27 01:01:07.000000000 +0200
++++ gegl-0.4.18/bin/meson.build	2019-12-01 10:49:47.905607335 +0100
+@@ -18,7 +18,7 @@
+   gegl_deps += [ libpng, ]
+ endif
+ 
+-if mrg.found() and gexiv2.found() and lua.found()
++if mrg.found() and gexiv2.found()
+   gegl_sources += files(
+     'argvs.c',
+     'mrg-gegl.c',
