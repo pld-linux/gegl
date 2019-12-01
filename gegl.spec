@@ -21,11 +21,12 @@ Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
 Version:	0.4.18
-Release:	2
+Release:	3
 License:	LGPL v3+/GPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.4/%{name}-%{version}.tar.xz
 # Source0-md5:	567f9e6c0a0a1a4145a1a1b254ca9ac5
+Patch0:		%{name}-mrg.patch
 Patch1:		%{name}-ruby1.9.patch
 Patch2:		%{name}-build.patch
 Patch3:		umfpack.patch
@@ -184,6 +185,7 @@ API języka Vala dla biblioteki gegl.
 
 %prep
 %setup -q
+%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
