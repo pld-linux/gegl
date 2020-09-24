@@ -14,19 +14,18 @@
 %undefine	with_lua
 %endif
 
-%define	babl_version	0.1.74
-%define	mrg_version	0.1.2-1.20190322.1
+%define	babl_version	0.1.78
+%define	mrg_version	0.1.4
 
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.4.22
+Version:	0.4.26
 Release:	1
 License:	LGPL v3+/GPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.4/%{name}-%{version}.tar.xz
-# Source0-md5:	1776ac26792de0de3c3d680872e94b72
-Patch0:		%{name}-mrg.patch
+# Source0-md5:	4756ac2a8cfca8591f12dbf3f6701b14
 Patch1:		%{name}-ruby1.9.patch
 Patch2:		%{name}-build.patch
 Patch3:		umfpack.patch
@@ -158,7 +157,7 @@ Summary:	gegl library API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki gegl
 Group:		Documentation
 Requires:	gtk-doc-common
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
@@ -173,7 +172,7 @@ Summary:	Vala API for gegl library
 Summary(pl.UTF-8):	API języka Vala dla biblioteki gegl
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
@@ -185,7 +184,6 @@ API języka Vala dla biblioteki gegl.
 
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
@@ -201,6 +199,10 @@ CPPFLAGS="%{rpmcppflags} -I/usr/include/umfpack"
 	-Dworkshop=true
 
 %ninja_build -C build
+
+rmdir build/docs/operations/RAM
+# possible gegl-tester coredumps?
+rm -f build/docs/operations/core*
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -252,7 +254,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with doc}
 %files apidocs
 %defattr(644,root,root,755)
-%doc build/docs/{ophtml,*.html,*.png}
+%doc build/docs/{operations,*.html,*.png}
 %{_gtkdocdir}/gegl
 %endif
 
