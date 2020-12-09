@@ -200,9 +200,11 @@ CPPFLAGS="%{rpmcppflags} -I/usr/include/umfpack"
 
 %ninja_build -C build
 
+%if %{with doc}
 rmdir build/docs/operations/RAM
 # possible gegl-tester coredumps?
 rm -f build/docs/operations/core*
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
