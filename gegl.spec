@@ -157,9 +157,7 @@ Summary:	gegl library API documentation
 Summary(pl.UTF-8):	Dokumentacja API biblioteki gegl
 Group:		Documentation
 Requires:	gtk-doc-common
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description apidocs
 gegl library API documentation.
@@ -172,9 +170,7 @@ Summary:	Vala API for gegl library
 Summary(pl.UTF-8):	API języka Vala dla biblioteki gegl
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description -n vala-gegl
 Vala API for gegl library.
