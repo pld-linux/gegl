@@ -1,3 +1,4 @@
+# TODO: maxflow >= 3.0.4
 #
 # Conditional build:
 %bcond_without	doc		# apidocs
@@ -14,34 +15,34 @@
 %undefine	with_lua
 %endif
 
-%define	babl_version	0.1.78
-%define	mrg_version	0.1.4
+%define	babl_ver	0.1.78
+%define	mrg_ver		0.1.4
 
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.4.26
+Version:	0.4.30
 Release:	1
 License:	LGPL v3+/GPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.4/%{name}-%{version}.tar.xz
-# Source0-md5:	4756ac2a8cfca8591f12dbf3f6701b14
+# Source0-md5:	6ae601b8c7cab8af5a36406df0b95ebf
 Patch1:		%{name}-ruby1.9.patch
 Patch2:		%{name}-build.patch
 Patch3:		umfpack.patch
 Patch4:		%{name}-link.patch
 Patch5:		%{name}-no-lua.patch
-URL:		http://www.gegl.org/
+URL:		https://www.gegl.org/
 BuildRequires:	OpenEXR-devel >= 1.6.1
 BuildRequires:	SDL2-devel >= 2.0.5
 BuildRequires:	UMFPACK-devel
 BuildRequires:	asciidoc
-BuildRequires:	babl-devel >= %{babl_version}
+BuildRequires:	babl-devel >= %{babl_ver}
 BuildRequires:	bash
 BuildRequires:	cairo-devel >= 1.12.2
 BuildRequires:	enscript
 BuildRequires:	exiv2-devel >= 0.25
-# libavformat >= 55.48.100, libavcodec >= 55.69.100, libavutil >= 52.92.100, libswscale >= 2.6.100
+# libavcodec >= 55.69.100, libavformat >= 55.48.100, libavutil >= 55.92.100, libswscale >= 2.6.100
 BuildRequires:	ffmpeg-devel >= 2.3
 BuildRequires:	gdk-pixbuf2-devel >= 2.32.0
 BuildRequires:	gettext-tools >= 0.19.8
@@ -68,7 +69,7 @@ BuildRequires:	luajit-devel >= 2.0.4
 BuildRequires:	lua51-devel >= 5.1.5-2
 %endif
 BuildRequires:	meson >= 0.50.0
-BuildRequires:	mrg-devel >= %{mrg_version}
+BuildRequires:	mrg-devel >= %{mrg_ver}
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pango-devel >= 1:1.38.0
 BuildRequires:	perl-base >= 5
@@ -83,12 +84,15 @@ BuildRequires:	poly2tri-c-devel
 BuildRequires:	rpmbuild(macros) >= 1.736
 BuildRequires:	ruby >= 1.9
 BuildRequires:	tar >= 1:1.22
-%{?with_vala:BuildRequires:	vala >= 2:0.20.0}
+%if %{with vala}
+BuildRequires:	vala >= 2:0.20.0
+BuildRequires:	vala-babl >= %{babl_ver}
+%endif
 BuildRequires:	xz
 BuildRequires:	zlib-devel >= 1.2.0
 Requires:	OpenEXR >= 1.6.1
 Requires:	SDL2 >= 2.0.5
-Requires:	babl >= %{babl_version}
+Requires:	babl >= %{babl_ver}
 Requires:	cairo >= 1.12.2
 Requires:	gdk-pixbuf2 >= 2.32.0
 Requires:	glib2 >= 1:2.44.0
@@ -101,7 +105,7 @@ Requires:	librsvg >= 1:2.40.6
 Requires:	libspiro >= 0.5.0
 Requires:	libtiff >= 4.0.0
 Requires:	libwebp >= 0.5.0
-Requires:	mrg-libs >= %{mrg_version}
+Requires:	mrg-libs >= %{mrg_ver}
 Requires:	pango >= 1:1.38.0
 Requires:	poppler-glib >= 0.71.0
 Requires:	zlib >= 1.2.0
@@ -129,7 +133,7 @@ Summary:	Header files for gegl library
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki gegl
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	babl-devel >= %{babl_version}
+Requires:	babl-devel >= %{babl_ver}
 Requires:	glib2-devel >= 1:2.44.0
 Requires:	json-glib-devel >= 1.2.6
 Requires:	poly2tri-c-devel
@@ -227,6 +231,7 @@ rm -rf $RPM_BUILD_ROOT
 %{?with_introspection:%{_libdir}/girepository-1.0/Gegl-0.4.typelib}
 %dir %{_libdir}/gegl-0.4
 %attr(755,root,root) %{_libdir}/gegl-0.4/*.so
+%{_libdir}/gegl-0.4/dropshadow2.json
 %{_libdir}/gegl-0.4/grey2.json
 %if %{with lua}
 %dir %{_datadir}/gegl-0.4
