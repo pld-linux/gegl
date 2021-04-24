@@ -1,4 +1,3 @@
-# TODO: maxflow >= 3.0.4
 #
 # Conditional build:
 %bcond_without	doc		# apidocs
@@ -68,6 +67,7 @@ BuildRequires:	libwebp-devel >= 0.5.0
 BuildRequires:	luajit-devel >= 2.0.4
 BuildRequires:	lua51-devel >= 5.1.5-2
 %endif
+BuildRequires:	maxflow-devel >= 3.0.4
 BuildRequires:	meson >= 0.50.0
 BuildRequires:	mrg-devel >= %{mrg_ver}
 BuildRequires:	ninja >= 1.5
@@ -105,6 +105,7 @@ Requires:	librsvg >= 1:2.40.6
 Requires:	libspiro >= 0.5.0
 Requires:	libtiff >= 4.0.0
 Requires:	libwebp >= 0.5.0
+Requires:	maxflow >= 3.0.4
 Requires:	mrg-libs >= %{mrg_ver}
 Requires:	pango >= 1:1.38.0
 Requires:	poppler-glib >= 0.71.0
