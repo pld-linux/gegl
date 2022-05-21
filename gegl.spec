@@ -20,18 +20,17 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.4.30
-Release:	5
+Version:	0.4.36
+Release:	1
 License:	LGPL v3+/GPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.4/%{name}-%{version}.tar.xz
-# Source0-md5:	6ae601b8c7cab8af5a36406df0b95ebf
+# Source0-md5:	ed07ff53e7c9f0d2320c729b7d1ba386
 Patch1:		%{name}-ruby1.9.patch
 Patch2:		%{name}-build.patch
 Patch3:		umfpack.patch
 Patch4:		%{name}-link.patch
 Patch5:		%{name}-no-lua.patch
-Patch6:		openexr3.patch
 URL:		https://www.gegl.org/
 BuildRequires:	OpenEXR-devel >= 1.6.1
 BuildRequires:	SDL2-devel >= 2.0.5
@@ -193,12 +192,12 @@ API języka Vala dla biblioteki gegl.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-%patch6 -p1
 
 %build
 CPPFLAGS="%{rpmcppflags} -I/usr/include/umfpack"
 %meson build \
 	%{?with_doc:-Ddocs=true} \
+	%{?with_doc:-Dgtk-doc=true} \
 	%{!?with_introspection:-Dintrospection=false} \
 	%{!?with_lua:-Dlua=disabled} \
 	-Dworkshop=true
@@ -206,7 +205,6 @@ CPPFLAGS="%{rpmcppflags} -I/usr/include/umfpack"
 %ninja_build -C build
 
 %if %{with doc}
-rmdir build/docs/operations/RAM
 # possible gegl-tester coredumps?
 rm -f build/docs/operations/core*
 %endif
@@ -262,7 +260,7 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with doc}
 %files apidocs
 %defattr(644,root,root,755)
-%doc build/docs/{operations,*.html,*.png}
+%doc build/docs/{website,*.html,*.txt}
 %{_gtkdocdir}/gegl
 %endif
 
