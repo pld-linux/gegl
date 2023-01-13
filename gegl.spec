@@ -20,21 +20,20 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.4.36
+Version:	0.4.38
 Release:	1
 License:	LGPL v3+/GPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.4/%{name}-%{version}.tar.xz
-# Source0-md5:	ed07ff53e7c9f0d2320c729b7d1ba386
+# Source0-md5:	8de1ad0dcb9965d0cebb68fdba556a25
 Patch1:		%{name}-ruby1.9.patch
 Patch2:		%{name}-build.patch
-Patch3:		umfpack.patch
 Patch4:		%{name}-link.patch
 Patch5:		%{name}-no-lua.patch
 URL:		https://www.gegl.org/
 BuildRequires:	OpenEXR-devel >= 1.6.1
 BuildRequires:	SDL2-devel >= 2.0.5
-BuildRequires:	UMFPACK-devel
+BuildRequires:	SuiteSparse-UMFPACK-devel
 BuildRequires:	asciidoc
 BuildRequires:	babl-devel >= %{babl_ver}
 BuildRequires:	bash
@@ -189,12 +188,10 @@ API języka Vala dla biblioteki gegl.
 %setup -q
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 %patch4 -p1
 %patch5 -p1
 
 %build
-CPPFLAGS="%{rpmcppflags} -I/usr/include/umfpack"
 %meson build \
 	%{?with_doc:-Ddocs=true} \
 	%{?with_doc:-Dgtk-doc=true} \

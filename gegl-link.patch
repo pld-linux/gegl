@@ -1,10 +1,10 @@
---- gegl-0.4.18/seamless-clone/meson.build.orig	2019-10-27 01:01:07.000000000 +0200
-+++ gegl-0.4.18/seamless-clone/meson.build	2019-11-30 19:46:21.886515954 +0100
-@@ -22,6 +22,7 @@
-     glib,
-     gobject,
+--- gegl-0.4.38/seamless-clone/meson.build.orig	2022-07-13 22:16:56.000000000 +0200
++++ gegl-0.4.38/seamless-clone/meson.build	2023-01-13 06:08:46.168109816 +0100
+@@ -20,6 +20,7 @@ seamlessclone_lib = library('gegl-sc-' +
+   dependencies: [
+     gegl_dep,
      poly2tri_c,
 +    math,
    ],
-   link_with: [
-     gegl_lib,
+   install: true,
+ )
