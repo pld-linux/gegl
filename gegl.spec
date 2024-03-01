@@ -20,15 +20,14 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.4.46
-Release:	2
+Version:	0.4.48
+Release:	1
 License:	LGPL v3+/GPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.4/%{name}-%{version}.tar.xz
-# Source0-md5:	241bde22f9204515121e5fb03a2b9fbd
+# Source0-md5:	a96ae32d46855ab4eefa1fce2dbefda1
 Patch1:		%{name}-ruby1.9.patch
 Patch2:		%{name}-build.patch
-Patch4:		%{name}-link.patch
 Patch5:		%{name}-no-lua.patch
 URL:		https://www.gegl.org/
 BuildRequires:	OpenEXR-devel >= 1.6.1
@@ -45,11 +44,12 @@ BuildRequires:	ffmpeg-devel >= 2.3
 BuildRequires:	gcc >= 5:4.7
 BuildRequires:	gdk-pixbuf2-devel >= 2.32.0
 BuildRequires:	gettext-tools >= 0.19.8
-BuildRequires:	gexiv2-devel
+BuildRequires:	gexiv2-devel >= 0.14.0
 BuildRequires:	glib2-devel >= 1:2.44.0
 %{?with_introspection:BuildRequires:	gobject-introspection-devel >= 1.32.0}
 BuildRequires:	graphviz
-BuildRequires:	gtk-doc >= 1.0
+%{?with_doc:BuildRequires:	gi-docgen}
+%{?with_doc:BuildRequires:	gtk-doc >= 1.0}
 BuildRequires:	jasper-devel >= 1.900.1
 BuildRequires:	json-glib-devel >= 1.2.6
 BuildRequires:	lcms2-devel >= 2.8
@@ -69,7 +69,7 @@ BuildRequires:	luajit-devel >= 2.0.4
 BuildRequires:	lua51-devel >= 5.1.5-2
 %endif
 BuildRequires:	maxflow-devel >= 3.0.4
-BuildRequires:	meson >= 0.50.0
+BuildRequires:	meson >= 0.55.0
 BuildRequires:	mrg-devel >= %{mrg_ver}
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pango-devel >= 1:1.38.0
@@ -82,7 +82,7 @@ BuildRequires:	python3 >= 1:3.2
 #BuildRequires:	python-pygobject3-devel >= 3.2.0
 %endif
 BuildRequires:	poly2tri-c-devel
-BuildRequires:	rpmbuild(macros) >= 1.736
+BuildRequires:	rpmbuild(macros) >= 2.029
 BuildRequires:	ruby >= 1.9
 BuildRequires:	tar >= 1:1.22
 %if %{with vala}
@@ -188,12 +188,12 @@ API języka Vala dla biblioteki gegl.
 %setup -q
 %patch1 -p1
 %patch2 -p1
-%patch4 -p1
 %patch5 -p1
 
 %build
 %meson build \
 	%{?with_doc:-Ddocs=true} \
+	%{!?with_doc:-Dgi-docgen=disabled} \
 	%{?with_doc:-Dgtk-doc=true} \
 	%{!?with_introspection:-Dintrospection=false} \
 	%{!?with_lua:-Dlua=disabled} \
@@ -210,6 +210,11 @@ rm -f build/docs/operations/core*
 rm -rf $RPM_BUILD_ROOT
 
 %ninja_install -C build
+
+%if %{with doc}
+install -d $RPM_BUILD_ROOT%{_gidocdir}
+%{__mv} $RPM_BUILD_ROOT%{_docdir}/gegl-0.4 $RPM_BUILD_ROOT%{_gidocdir}
+%endif
 
 %find_lang %{name}-0.4
 
@@ -258,6 +263,7 @@ rm -rf $RPM_BUILD_ROOT
 %files apidocs
 %defattr(644,root,root,755)
 %doc build/docs/{website,*.html,*.txt}
+%{_gidocdir}/gegl-0.4
 %{_gtkdocdir}/gegl
 %endif
 
