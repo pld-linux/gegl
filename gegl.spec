@@ -1,7 +1,8 @@
 #
 # Conditional build:
 %bcond_without	doc		# apidocs
-%bcond_without	lua		# without lua support
+%bcond_without	lensfun		# lensfun support
+%bcond_without	lua		# Lua support
 %bcond_without	static_libs	# static library
 %bcond_without	introspection	# API introspection
 %bcond_without	vala		# Vala API
@@ -53,7 +54,7 @@ BuildRequires:	graphviz
 BuildRequires:	jasper-devel >= 1.900.1
 BuildRequires:	json-glib-devel >= 1.2.6
 BuildRequires:	lcms2-devel >= 2.8
-BuildRequires:	lensfun-devel >= 0.2.5
+%{?with_lensfun:BuildRequires:	lensfun-devel >= 0.2.5}
 BuildRequires:	libjpeg-devel >= 1.0.0
 BuildRequires:	libnsgif-devel
 BuildRequires:	libpng-devel >= 2:1.6.0
@@ -196,6 +197,7 @@ API języka Vala dla biblioteki gegl.
 	%{!?with_doc:-Dgi-docgen=disabled} \
 	%{?with_doc:-Dgtk-doc=true} \
 	%{!?with_introspection:-Dintrospection=false} \
+	%{!?with_lensfun:-Dlensfun=disabled} \
 	%{!?with_lua:-Dlua=disabled} \
 	-Dworkshop=true
 
