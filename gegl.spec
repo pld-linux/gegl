@@ -21,12 +21,12 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.4.48
-Release:	2
+Version:	0.4.52
+Release:	1
 License:	LGPL v3+/GPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.4/%{name}-%{version}.tar.xz
-# Source0-md5:	a96ae32d46855ab4eefa1fce2dbefda1
+# Source0-md5:	5f174671b0734d70dcf1e8eaaa2e4aba
 Patch1:		%{name}-ruby1.9.patch
 Patch2:		%{name}-build.patch
 Patch5:		%{name}-no-lua.patch
@@ -46,10 +46,10 @@ BuildRequires:	gcc >= 5:4.7
 BuildRequires:	gdk-pixbuf2-devel >= 2.32.0
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	gexiv2-devel >= 0.14.0
+%{?with_doc:BuildRequires:	gi-docgen}
 BuildRequires:	glib2-devel >= 1:2.44.0
 %{?with_introspection:BuildRequires:	gobject-introspection-devel >= 1.32.0}
 BuildRequires:	graphviz
-%{?with_doc:BuildRequires:	gi-docgen}
 %{?with_doc:BuildRequires:	gtk-doc >= 1.0}
 BuildRequires:	jasper-devel >= 1.900.1
 BuildRequires:	json-glib-devel >= 1.2.6
@@ -66,8 +66,8 @@ BuildRequires:	libtiff-devel >= 4.0.0
 BuildRequires:	libv4l-devel >= 1.0.1
 BuildRequires:	libwebp-devel >= 0.5.0
 %if %{with lua}
-BuildRequires:	luajit-devel >= 2.0.4
 BuildRequires:	lua51-devel >= 5.1.5-2
+BuildRequires:	luajit-devel >= 2.0.4
 %endif
 BuildRequires:	maxflow-devel >= 3.0.4
 BuildRequires:	meson >= 0.55.0
@@ -187,9 +187,9 @@ API języka Vala dla biblioteki gegl.
 
 %prep
 %setup -q
-%patch1 -p1
-%patch2 -p1
-%patch5 -p1
+%patch -P 1 -p1
+%patch -P 2 -p1
+%patch -P 5 -p1
 
 %build
 %meson build \
