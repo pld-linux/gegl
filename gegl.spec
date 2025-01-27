@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	doc		# apidocs
+%bcond_with	doc		# apidocs
 %bcond_without	lensfun		# lensfun support
 %bcond_without	lua		# Lua support
 %bcond_without	static_libs	# static library
@@ -193,9 +193,9 @@ API języka Vala dla biblioteki gegl.
 
 %build
 %meson build \
-	%{?with_doc:-Ddocs=true} \
+	-Ddocs=%{__true_false doc} \
+	-Dgtk-doc=%{__true_false doc} \
 	%{!?with_doc:-Dgi-docgen=disabled} \
-	%{?with_doc:-Dgtk-doc=true} \
 	%{!?with_introspection:-Dintrospection=false} \
 	%{!?with_lensfun:-Dlensfun=disabled} \
 	%{!?with_lua:-Dlua=disabled} \
