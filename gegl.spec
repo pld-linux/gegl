@@ -21,12 +21,12 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.4.52
+Version:	0.4.56
 Release:	1
 License:	LGPL v3+/GPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.4/%{name}-%{version}.tar.xz
-# Source0-md5:	5f174671b0734d70dcf1e8eaaa2e4aba
+# Source0-md5:	fe24c679951f24216f9c3ad31ecc7bfa
 Patch1:		%{name}-ruby1.9.patch
 Patch2:		%{name}-build.patch
 Patch5:		%{name}-no-lua.patch
@@ -192,7 +192,7 @@ API języka Vala dla biblioteki gegl.
 %patch -P 5 -p1
 
 %build
-%meson build \
+%meson \
 	-Ddocs=%{__true_false doc} \
 	-Dgtk-doc=%{__true_false doc} \
 	%{!?with_doc:-Dgi-docgen=disabled} \
@@ -201,7 +201,7 @@ API języka Vala dla biblioteki gegl.
 	%{!?with_lua:-Dlua=disabled} \
 	-Dworkshop=true
 
-%ninja_build -C build
+%meson_build
 
 %if %{with doc}
 # possible gegl-tester coredumps?
@@ -211,7 +211,7 @@ rm -f build/docs/operations/core*
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%ninja_install -C build
+%meson_install
 
 %if %{with doc}
 install -d $RPM_BUILD_ROOT%{_gidocdir}
