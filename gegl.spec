@@ -15,18 +15,19 @@
 %undefine	with_lua
 %endif
 
-%define	babl_ver	0.1.114
+%define	babl_ver	0.1.116
 %define	mrg_ver		0.1.4
 
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.4.62
-Release:	6
+Version:	0.4.66
+Release:	1
 License:	LGPL v3+/GPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.4/%{name}-%{version}.tar.xz
-# Source0-md5:	0077654104c84fd54b4b48b92271131c
+# Source0-md5:	6897676f4a78de0faefea446268264bc
+Patch0:		defs.patch
 Patch1:		%{name}-ruby1.9.patch
 Patch2:		%{name}-build.patch
 Patch5:		%{name}-no-lua.patch
@@ -56,7 +57,7 @@ BuildRequires:	json-glib-devel >= 1.2.6
 BuildRequires:	lcms2-devel >= 2.8
 %{?with_lensfun:BuildRequires:	lensfun-devel >= 0.2.5}
 BuildRequires:	libjpeg-devel >= 1.0.0
-BuildRequires:	libnsgif-devel
+BuildRequires:	libnsgif-devel >= 1.0.0
 BuildRequires:	libpng-devel >= 2:1.6.0
 BuildRequires:	libraw-devel >= 0.15.4
 BuildRequires:	librsvg-devel >= 1:2.40.6
@@ -70,7 +71,7 @@ BuildRequires:	lua51-devel >= 5.1.5-2
 BuildRequires:	luajit-devel >= 2.0.4
 %endif
 BuildRequires:	maxflow-devel >= 3.0.4
-BuildRequires:	meson >= 0.55.0
+BuildRequires:	meson >= 0.59.0
 BuildRequires:	mrg-devel >= %{mrg_ver}
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pango-devel >= 1:1.38.0
@@ -103,6 +104,7 @@ Requires:	jasper-libs >= 1.900.1
 Requires:	json-glib >= 1.2.6
 Requires:	lcms2 >= 2.8
 Requires:	lensfun >= 0.2.5
+Requires:	libnsgif >= 1.0.0
 Requires:	libraw >= 0.15.4
 Requires:	librsvg >= 1:2.40.6
 Requires:	libspiro >= 0.5.0
@@ -188,6 +190,7 @@ API języka Vala dla biblioteki gegl.
 
 %prep
 %setup -q
+%patch -P 0 -p1
 %patch -P 1 -p1
 %patch -P 2 -p1
 %patch -P 5 -p1
