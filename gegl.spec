@@ -3,7 +3,7 @@
 %bcond_with	doc		# apidocs
 %bcond_without	lensfun		# lensfun support
 %bcond_without	lua		# Lua support
-%bcond_without	static_libs	# static library
+%bcond_without	static_libs	# static libraries
 %bcond_without	introspection	# API introspection
 %bcond_without	vala		# Vala API
 
@@ -193,6 +193,7 @@ API języka Vala dla biblioteki gegl.
 
 %build
 %meson \
+	%{!?with_static_libs:--default-library=shared} \
 	-Ddocs=%{__true_false doc} \
 	-Dgtk-doc=%{__true_false doc} \
 	%{!?with_doc:-Dgi-docgen=disabled} \
