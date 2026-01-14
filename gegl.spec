@@ -83,7 +83,7 @@ BuildRequires:	python3 >= 1:3.2
 #BuildRequires:	python-pygobject3-devel >= 3.2.0
 %endif
 BuildRequires:	poly2tri-c-devel
-BuildRequires:	rpmbuild(macros) >= 2.029
+BuildRequires:	rpmbuild(macros) >= 2.042
 BuildRequires:	ruby >= 1.9
 BuildRequires:	tar >= 1:1.22
 %if %{with vala}
