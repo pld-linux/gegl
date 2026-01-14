@@ -42,7 +42,7 @@ BuildRequires:	enscript
 BuildRequires:	exiv2-devel >= 0.25
 # libavcodec >= 55.69.100, libavformat >= 55.48.100, libavutil >= 55.92.100, libswscale >= 2.6.100
 BuildRequires:	ffmpeg-devel >= 2.3
-BuildRequires:	gcc >= 5:4.7
+BuildRequires:	gcc >= 6:4.7
 BuildRequires:	gdk-pixbuf2-devel >= 2.32.0
 BuildRequires:	gettext-tools >= 0.19.8
 BuildRequires:	gexiv2-devel >= 0.14.0
