@@ -21,12 +21,12 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.4.68
+Version:	0.4.70
 Release:	1
 License:	LGPL v3+/GPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.4/%{name}-%{version}.tar.xz
-# Source0-md5:	c0e482c44518db0440257b565100366a
+# Source0-md5:	2442d5f0cb97bcc1b50d2082e29c9375
 Patch1:		%{name}-ruby1.9.patch
 Patch2:		%{name}-build.patch
 Patch5:		%{name}-no-lua.patch
@@ -234,13 +234,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS MAINTAINERS
 %attr(755,root,root) %{_bindir}/gegl
 %attr(755,root,root) %{_bindir}/gegl-imgcmp
-%attr(755,root,root) %{_libdir}/libgegl-0.4.so.*.*.*
+%{_libdir}/libgegl-0.4.so.*.*.*
 %ghost %{_libdir}/libgegl-0.4.so.0
-%attr(755,root,root) %{_libdir}/libgegl-npd-0.4.so
-%attr(755,root,root) %{_libdir}/libgegl-sc-0.4.so
+%{_libdir}/libgegl-npd-0.4.so
+%{_libdir}/libgegl-sc-0.4.so
 %{?with_introspection:%{_libdir}/girepository-1.0/Gegl-0.4.typelib}
 %dir %{_libdir}/gegl-0.4
-%attr(755,root,root) %{_libdir}/gegl-0.4/*.so
+%{_libdir}/gegl-0.4/*.so
 %{_libdir}/gegl-0.4/dropshadow2.json
 %{_libdir}/gegl-0.4/grey2.json
 %if %{with lua}
