@@ -21,18 +21,19 @@
 Summary:	Generic image processing library
 Summary(pl.UTF-8):	Ogólna biblioteka przetwarzania obrazu
 Name:		gegl
-Version:	0.4.70
+Version:	0.4.72
 Release:	1
 License:	LGPL v3+/GPL v3+
 Group:		Libraries
 Source0:	https://download.gimp.org/pub/gegl/0.4/%{name}-%{version}.tar.xz
-# Source0-md5:	2442d5f0cb97bcc1b50d2082e29c9375
-Patch1:		%{name}-ruby1.9.patch
+# Source0-md5:	0f8c38a4b5278a939f97b3bc7e5ed914
 Patch2:		%{name}-build.patch
 Patch5:		%{name}-no-lua.patch
 URL:		https://www.gegl.org/
+BuildRequires:	OpenCL-devel >= 3.0
 BuildRequires:	OpenEXR-devel >= 1.6.1
 BuildRequires:	SDL2-devel >= 2.0.5
+BuildRequires:	SDL3-devel >= 3.2.0
 BuildRequires:	SuiteSparse-UMFPACK-devel
 BuildRequires:	asciidoc
 BuildRequires:	babl-devel >= %{babl_ver}
@@ -70,7 +71,7 @@ BuildRequires:	lua51-devel >= 5.1.5-2
 BuildRequires:	luajit-devel >= 2.0.4
 %endif
 BuildRequires:	maxflow-devel >= 3.0.4
-BuildRequires:	meson >= 0.59.0
+BuildRequires:	meson >= 0.60.0
 BuildRequires:	mrg-devel >= %{mrg_ver}
 BuildRequires:	ninja >= 1.5
 BuildRequires:	pango-devel >= 1:1.38.0
@@ -85,7 +86,6 @@ BuildRequires:	python3 >= 1:3.2
 BuildRequires:	poly2tri-c-devel
 BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 2.042
-BuildRequires:	ruby >= 1.9
 BuildRequires:	tar >= 1:1.22
 %if %{with vala}
 BuildRequires:	vala >= 2:0.20.0
@@ -95,6 +95,7 @@ BuildRequires:	xz
 BuildRequires:	zlib-devel >= 1.2.0
 Requires:	OpenEXR >= 1.6.1
 Requires:	SDL2 >= 2.0.5
+Requires:	SDL3 >= 3.2.0
 Requires:	babl >= %{babl_ver}
 Requires:	cairo >= 1.12.2
 Requires:	gdk-pixbuf2 >= 2.32.0
@@ -189,19 +190,44 @@ API języka Vala dla biblioteki gegl.
 
 %prep
 %setup -q
-%patch -P 1 -p1
 %patch -P 2 -p1
 %patch -P 5 -p1
 
 %build
 %meson \
 	%{!?with_static_libs:--default-library=shared} \
+	-Dcairo=enabled \
 	-Ddocs=%{__true_false doc} \
+	-Dgdk-pixbuf=enabled \
+	-Dgexiv2=enabled \
 	-Dgtk-doc=%{__true_false doc} \
-	%{!?with_doc:-Dgi-docgen=disabled} \
-	%{!?with_introspection:-Dintrospection=false} \
-	%{!?with_lensfun:-Dlensfun=disabled} \
-	%{!?with_lua:-Dlua=disabled} \
+	-Dgi-docgen=%{__enabled_disabled doc} \
+	-Dgraphviz=enabled \
+	-Dintrospection=%{__true_false introspection} \
+	-Djasper=enabled \
+	-Dlcms=enabled \
+	-Dlensfun=%{__enabled_disabled lensfun} \
+	-Dlibav=enabled \
+	-Dlibraw=enabled \
+	-Dlibrsvg=enabled \
+	-Dlibspiro=enabled \
+	-Dlibtiff=enabled \
+	-Dlibv4l=enabled \
+	-Dlibv4l2=enabled \
+	-Dlua=%{__enabled_disabled lua} \
+	-Dmaxflow=enabled \
+	-Dmrg=enabled \
+	-Dopenexr=enabled \
+	-Dopenmp=enabled \
+	-Dpango=enabled \
+	-Dpangocairo=enabled \
+	-Dpoppler=enabled \
+	-Dpygobject=enabled \
+	-Dsdl2=enabled \
+	-Dsdl3=enabled \
+	-Dumfpack=enabled \
+	-Dvapigen=enabled \
+	-Dwebp=enabled \
 	-Dworkshop=true
 
 %meson_build
