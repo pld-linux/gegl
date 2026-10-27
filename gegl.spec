@@ -222,7 +222,7 @@ API języka Vala dla biblioteki gegl.
 	-Dpango=enabled \
 	-Dpangocairo=enabled \
 	-Dpoppler=enabled \
-	-Dpygobject=enabled \
+	-Dpygobject=disabled \
 	-Dsdl2=enabled \
 	-Dsdl3=enabled \
 	-Dumfpack=enabled \
